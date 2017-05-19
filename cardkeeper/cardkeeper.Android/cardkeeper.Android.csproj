@@ -110,7 +110,7 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\profile_generic.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\famlogo.png" />
+    <AndroidResource Include="Resources\drawable\cklogo.png" />
   </ItemGroup>
   <Import Project="..\cardkeeper\cardkeeper.projitems" Label="Shared" Condition="Exists('..\cardkeeper\cardkeeper.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

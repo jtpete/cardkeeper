@@ -1,4 +1,5 @@
-﻿using System;
+﻿using cardkeeper.ViewModels;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,12 +8,16 @@ namespace cardkeeper.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MainPage : ContentPage
 	{
+        MainViewModel _viewModel;
 		public MainPage ()
-		{
-			InitializeComponent ();
+        { 
+            InitializeComponent();
+            _viewModel = new MainViewModel();
             Content = LayoutMainPage();
+            _viewModel.Navigation = Navigation;
+            BindingContext = _viewModel;
         }
-        public static View LayoutMainPage()
+        public View LayoutMainPage()
         {
             var layout = new StackLayout();
 
@@ -30,7 +35,7 @@ namespace cardkeeper.Views
 
             var logo = new Image
             {
-                Source = "famlogo.png",
+                Source = "cklogo.png",
                 Aspect = Aspect.Fill
             };
             var weather = new Label
@@ -38,9 +43,10 @@ namespace cardkeeper.Views
                 Text = "Weather",
                 HorizontalTextAlignment = TextAlignment.End,
                 VerticalTextAlignment = TextAlignment.Center,
+                TextColor = Color.White,
             };
 
-            header.BackgroundColor = Color.FromHex("#AD974F");
+            header.BackgroundColor = Color.FromHex("#2a2a2a");
 
 
             header.Children.Add(logo, 0, 0);
@@ -59,8 +65,8 @@ namespace cardkeeper.Views
                 BorderRadius = 5,
                 BorderWidth = 2,
                 BackgroundColor = Color.Blue,
+                Command = _viewModel.ViewCardsCommand,
             };
-            viewCards.Clicked += ViewCardsClicked;
 
             var addCards = new Button
             {
@@ -72,9 +78,9 @@ namespace cardkeeper.Views
                 BorderColor = Color.Black,
                 BorderRadius = 5,
                 BorderWidth = 2,
-                BackgroundColor = Color.Green
+                BackgroundColor = Color.Green,
+                Command = _viewModel.AddCardCommand
             };
-            addCards.Clicked += AddCardsClicked;
 
             layout.Children.Add(header);
             layout.Children.Add(viewCards);
@@ -82,16 +88,6 @@ namespace cardkeeper.Views
 
 
             return layout;
-        }
-        static void ViewCardsClicked(object sender, EventArgs e)
-        {
-            Button button = (Button)sender;
-            button.Navigation.PushAsync(new NavigationPage(new AboutPage()));
-        }
-        static void AddCardsClicked(object sender, EventArgs e)
-        {
-            Button button = (Button)sender;
-            button.Navigation.PushAsync(new NavigationPage(new ItemsPage()));
         }
     }
 }
