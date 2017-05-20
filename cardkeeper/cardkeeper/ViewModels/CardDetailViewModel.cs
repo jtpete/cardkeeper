@@ -6,13 +6,14 @@ using System.IO;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using cardkeeper.Helpers;
+using System.Diagnostics;
+using cardkeeper.Views;
 
 namespace cardkeeper.ViewModels
 {
     class CardDetailViewModel : ContentPage
     {
-        string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "cardKeeperDB.db3");
-
         public Card Card
         {
             get { return (Card)GetValue(CardProperty); }
@@ -26,25 +27,24 @@ namespace cardkeeper.ViewModels
 
         public CardDetailViewModel(Card card)
         {
-
             Card = card;
             RemoveButtonCommand = new Command(RemoveThisCard);
-
         }
         public async void RemoveThisCard()
         {
             var action = await DisplayAlert("Are you sure you want to remove this card?", $"\nAccount Number: {Card.AccountNumber}\nBalance: ${Card.Balance.ToString("0.00")}", "No", "Yes");
             if (!action)
             {
-                MakeDatabaseCall();
-                await Navigation.PopModalAsync();
+                try
+                {
+                    await Database.DeleteCardAsync(Card);
+                    await Navigation.PopAsync();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
             }
-        }
-        public void MakeDatabaseCall()
-        {
-            var db = new SQLiteConnection(dbPath);
-            db.Delete(Card);
-
         }
     }
 }

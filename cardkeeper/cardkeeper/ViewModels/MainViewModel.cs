@@ -1,6 +1,7 @@
 ﻿using cardkeeper.Views;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -16,16 +17,17 @@ namespace cardkeeper.ViewModels
 
         public MainViewModel()
         {
+     //       File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "cardKeeperDB.db3"));
             AddCardCommand = new Command(GoToAddCardPage);
             ViewCardsCommand = new Command(GoToViewCardsPage);
         }
         public async void GoToAddCardPage()
         {
-            await Navigation.PushModalAsync(new NavigationPage(new AddCardPage()));
+            await Navigation.PushAsync(new AddCardPage());
         }
         public async void GoToViewCardsPage()
         {
-           await Navigation.PushAsync(new NavigationPage(new CardsPage()));
+           await Navigation.PushAsync(new CardsPage());
         }
     }
 }

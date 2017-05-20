@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using Xamarin.Forms;
+using SQLite;
 
 namespace cardkeeper.Models
 {
@@ -12,9 +13,10 @@ namespace cardkeeper.Models
         public Card()
         {
         }
-
-        private int accountNumber;
-        public int AccountNumber
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        private string accountNumber;
+        public string AccountNumber
         {
             get { return accountNumber; }
             set { accountNumber = value;

@@ -43,26 +43,11 @@ namespace cardkeeper.ViewModels
 
             if (!action)
             {
-                MakeDatabaseCall();
-                await Navigation.PushModalAsync(new NavigationPage(new CardDetailPage(Card)));
+                await Database.AddCardAsync(Card); 
+                await Navigation.PopToRootAsync();
             }
             else
-                await Navigation.PopModalAsync();
-        }
-        private void MakeDatabaseCall()
-        {
-            //path string for database file
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "cardKeeperDB.db3");
-
-            //setup the db connection
-            var db = new SQLiteConnection(dbPath);
-
-            //setup the table
-            db.CreateTable<Card>();
-
-            //
-            db.Insert(Card);
-
+                await Navigation.PopAsync();
         }
 
     }

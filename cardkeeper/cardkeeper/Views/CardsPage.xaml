@@ -2,4 +2,38 @@
 <ContentPage
     x:Class="cardkeeper.Views.CardsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" />
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="BrowseItemsPage"
+    Title="Your Cards">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView
+                x:Name="CardsListView"
+                CachingStrategy="RecycleElement"
+                HasUnevenRows="true"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                ItemSelected="OnItemSelected"
+                ItemsSource="{Binding Cards}"
+                RefreshCommand="{Binding LoadCardsCommand}"
+                VerticalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10">
+                                <Label
+                                    FontSize="16"
+                                    LineBreakMode="NoWrap"
+                                    Text="{Binding AccountNumber}" />
+                                <Label
+                                    FontSize="13"
+                                    LineBreakMode="NoWrap"
+                                    Text="{Binding Balance}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

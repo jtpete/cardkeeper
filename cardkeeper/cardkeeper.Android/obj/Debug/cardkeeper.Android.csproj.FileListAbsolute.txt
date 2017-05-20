@@ -33,14 +33,11 @@ C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\bin\D
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\bin\Debug\Xamarin.Forms.Xaml.pdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\bin\Debug\Xamarin.Forms.Xaml.xml
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\bin\Debug\Xamarin.Forms.Xaml.dll.mdb
-C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Android.csprojResolveAssemblyReference.cache
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Droid.App.xaml.g.cs
-C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Droid.Views.ItemsPage.xaml.g.cs
-C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Droid.Views.ItemDetailPage.xaml.g.cs
-C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Droid.Views.NewItemPage.xaml.g.cs
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Droid.Views.MainPage.xaml.g.cs
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Droid.Views.AddCardPage.xaml.g.cs
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Droid.Views.CardDetailPage.xaml.g.cs
+C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Droid.Views.CardsPage.xaml.g.cs
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Android.dll
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Android.pdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\bin\com.companyname.cardkeeper.apk
@@ -56,6 +53,7 @@ C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\D
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\res\drawable\cklogo.png
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\R.cs.flag
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\uploadflags.txt
+C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Android.csprojResolveAssemblyReference.cache
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\bin\Debug\cardkeeper.Android.dll.mdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\cardkeeper.Android.dll.mdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\FormsViewGroup.dll.mdb
@@ -63,4 +61,3 @@ C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\D
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\Xamarin.Forms.Core.dll.mdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\Xamarin.Forms.Platform.Android.dll.mdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\Xamarin.Forms.Xaml.dll.mdb
-C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Droid.Views.CardsPage.xaml.g.cs
