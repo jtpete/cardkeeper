@@ -11,9 +11,7 @@ namespace cardkeeper.Models
      
         public Card()
         {
-            Id = Guid.NewGuid().ToString();
         }
-        public string Id { get; set; }
 
         private int accountNumber;
         public int AccountNumber
@@ -55,24 +53,5 @@ namespace cardkeeper.Models
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-    }
-    public class DecimalConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value is double)
-            {
-                return value.ToString();
-            }    
-            return value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            double dec;
-            if (double.TryParse(value as string, out dec))
-                return dec;
-            return value;
-        }
     }
 }

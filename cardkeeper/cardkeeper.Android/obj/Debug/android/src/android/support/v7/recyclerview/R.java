@@ -2473,9 +2473,9 @@ containing a value of this type.
         public static int abc_textfield_search_activated_mtrl_alpha=0x7f020048;
         public static int abc_textfield_search_default_mtrl_alpha=0x7f020049;
         public static int abc_textfield_search_material=0x7f02004a;
-        public static int design_fab_background=0x7f02004b;
-        public static int design_snackbar_background=0x7f02004c;
-        public static int famlogo=0x7f02004d;
+        public static int cklogo=0x7f02004b;
+        public static int design_fab_background=0x7f02004c;
+        public static int design_snackbar_background=0x7f02004d;
         public static int ic_audiotrack=0x7f02004e;
         public static int ic_audiotrack_light=0x7f02004f;
         public static int ic_bluetooth_grey=0x7f020050;

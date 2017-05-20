@@ -55,8 +55,16 @@ namespace cardkeeper.Views
             row2.Children.Add(balanceLabel);
             row2.Children.Add(balance);
 
+            var removeButton = new Button
+            {
+                Text = "Remove",
+                Command = _viewModel.RemoveButtonCommand,
+            };
+
             layout.Children.Add(row1);
             layout.Children.Add(row2);
+            layout.Children.Add(removeButton);
+
 
             return layout;
 

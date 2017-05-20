@@ -1,4 +1,5 @@
-﻿using cardkeeper.Models;
+﻿using cardkeeper.Helpers;
+using cardkeeper.Models;
 using cardkeeper.Services;
 using cardkeeper.Views;
 using System;
@@ -6,6 +7,8 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.IO;
+using SQLite;
 
 
 
@@ -34,14 +37,32 @@ namespace cardkeeper.ViewModels
 
         public async void AddCardToDatabaseAsync()
         {
-            double dec;
-            if (double.TryParse(Balance as string, out dec))
-                Card.Balance = Math.Round(dec, 2);
+            
+            Card.Balance = Converter.ConvertStringToDouble(Balance);
             var action = await DisplayAlert("Please confirm:", $"\nAccount Number: {Card.AccountNumber}\nBalance: ${Card.Balance.ToString("0.00")}", "No", "Yes");
+
             if (!action)
+            {
+                MakeDatabaseCall();
                 await Navigation.PushModalAsync(new NavigationPage(new CardDetailPage(Card)));
+            }
             else
                 await Navigation.PopModalAsync();
+        }
+        private void MakeDatabaseCall()
+        {
+            //path string for database file
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "cardKeeperDB.db3");
+
+            //setup the db connection
+            var db = new SQLiteConnection(dbPath);
+
+            //setup the table
+            db.CreateTable<Card>();
+
+            //
+            db.Insert(Card);
+
         }
 
     }

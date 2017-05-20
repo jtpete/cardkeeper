@@ -25,8 +25,7 @@ namespace cardkeeper.ViewModels
         }
         public async void GoToViewCardsPage()
         {
-            await Navigation.PopToRootAsync();
-           // await Navigation.PushAsync(new NavigationPage(new ViewCardsPage()));
+           await Navigation.PushAsync(new NavigationPage(new CardsPage()));
         }
     }
 }
