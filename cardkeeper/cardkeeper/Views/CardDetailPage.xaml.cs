@@ -1,4 +1,5 @@
-﻿using cardkeeper.Models;
+﻿using cardkeeper.Helpers;
+using cardkeeper.Models;
 using cardkeeper.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,12 @@ namespace cardkeeper.Views
             {
                 Text = $"{_viewModel.Card.Balance}",
             };
+            ImageSource qrCode = Converter.ByteToImage(_viewModel.Card.QRCode);
+            var qrCodeImage = new Image
+            {
+                Source = qrCode,
+                Aspect = Aspect.AspectFit,
+            };
             row2.Children.Add(balanceLabel);
             row2.Children.Add(balance);
 
@@ -63,6 +70,7 @@ namespace cardkeeper.Views
 
             layout.Children.Add(row1);
             layout.Children.Add(row2);
+            layout.Children.Add(qrCodeImage);
             layout.Children.Add(removeButton);
 
 

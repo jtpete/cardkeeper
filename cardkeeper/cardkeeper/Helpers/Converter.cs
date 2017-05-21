@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using Xamarin.Forms;
 
 namespace cardkeeper.Helpers
 {
@@ -16,5 +16,10 @@ namespace cardkeeper.Helpers
             else
                 return 0;
         }
+        public static ImageSource ByteToImage(byte[] imageData)
+        {
+            return ImageSource.FromStream(() => new MemoryStream(imageData));
+        }
+
     }
 }

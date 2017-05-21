@@ -43,6 +43,7 @@ namespace cardkeeper.ViewModels
 
             if (!action)
             {
+                Card.QRCode = await API.GetQRCode(Card.AccountNumber);
                 await Database.AddCardAsync(Card); 
                 await Navigation.PopToRootAsync();
             }

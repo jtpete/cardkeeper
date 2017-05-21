@@ -53,7 +53,6 @@ C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\D
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\res\drawable\cklogo.png
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\R.cs.flag
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\uploadflags.txt
-C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Android.csprojResolveAssemblyReference.cache
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\bin\Debug\cardkeeper.Android.dll.mdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\cardkeeper.Android.dll.mdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\FormsViewGroup.dll.mdb
