@@ -4,11 +4,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Name="BrowseItemsPage"
-    Icon="cklogo.png">
+    Title="{Binding CardType}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem 
-            Text="Add Card" 
-            Clicked="AddCardClicked" />
+        <ToolbarItem Clicked="AddCardClicked" Text="Add Card" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout BackgroundColor="#2a2a2a">

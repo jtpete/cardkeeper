@@ -19,14 +19,16 @@ namespace cardkeeper.Views
         }
         public View LayoutMainPage()
         {
-            var layout = new StackLayout();
+            var layout = new StackLayout()
+            {
+                BackgroundColor = Color.FromHex("#2a2a2a"),
+            };
 
 
             var header = new Grid() { ColumnSpacing = 10, RowSpacing = 10 };
             header.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             header.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            header.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            header.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            header.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             header.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             header.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             header.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
@@ -38,53 +40,115 @@ namespace cardkeeper.Views
                 Source = "cklogo.png",
                 Aspect = Aspect.Fill
             };
+
+            Label keeperLabel = new Label()
+            {
+                Text = "Card Keeper",
+                FontSize = 25,
+                TextColor = Color.FromHex("#cc9933"),
+                FontAttributes = FontAttributes.Bold,
+                HorizontalTextAlignment = TextAlignment.Center,
+                Margin = new Thickness(-10, 0, 0, 0)
+            };
             var weather = new Label
             {
                 Text = "Weather",
-                HorizontalTextAlignment = TextAlignment.End,
-                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = Color.White,
             };
 
-            header.BackgroundColor = Color.FromHex("#2a2a2a");
-
-
             header.Children.Add(logo, 0, 0);
-            header.Children.Add(weather, 4, 3);
-            Grid.SetColumnSpan(logo, 3);
-            Grid.SetRowSpan(logo, 4);
+            header.Children.Add(keeperLabel, 2, 1);
+            header.Children.Add(weather, 3, 0);
+            Grid.SetColumnSpan(keeperLabel, 3);
+            Grid.SetColumnSpan(logo, 2);
+            Grid.SetRowSpan(logo, 2);
 
-            var viewCards = new Button
+            var giftCardButton = new Button
             {
-                Text = "VIEW CARDS",
+                Text = "Gift",
                 FontSize = 30,
                 FontAttributes = FontAttributes.Bold,
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                BorderColor = Color.Black,
-                BorderRadius = 5,
-                BorderWidth = 2,
-                BackgroundColor = Color.Blue,
-                Command = _viewModel.ViewCardsCommand,
+                BackgroundColor = Color.FromHex("#cc9933"),
+                Command = _viewModel.GiftCardsCommand,
             };
-
-            var addCards = new Button
+            var giftCardFrame = new Frame()
             {
-                Text = "ADD CARDS",
+                Content = giftCardButton,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HasShadow = true,
+                BackgroundColor = Color.FromHex("#d8d8d8"),
+                CornerRadius = 10,
+                Padding = 1,
+                Margin = new Thickness(20, 10),
+            };
+            var loyaltyCardButton = new Button
+            {
+                Text = "Loyalty",
                 FontSize = 30,
                 FontAttributes = FontAttributes.Bold,
-                VerticalOptions = LayoutOptions.FillAndExpand,
+                BackgroundColor = Color.FromHex("#cc9933"),
+                Command = _viewModel.LoyaltyCardsCommand,
+            };
+            var loyaltyCardFrame = new Frame()
+            {
+                Content = loyaltyCardButton,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
-                BorderColor = Color.Black,
-                BorderRadius = 5,
-                BorderWidth = 2,
-                BackgroundColor = Color.Green,
-                Command = _viewModel.AddCardCommand
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HasShadow = true,
+                BackgroundColor = Color.FromHex("#d8d8d8"),
+                CornerRadius = 10,
+                Padding = 1,
+                Margin = new Thickness(20, 10),
+            };
+            var membershipCardButton = new Button
+            {
+                Text = "Membership",
+                FontSize = 30,
+                FontAttributes = FontAttributes.Bold,
+                BackgroundColor = Color.FromHex("#cc9933"),
+                Command = _viewModel.MembershipCardsCommand,
+            };
+            var membershipCardFrame = new Frame()
+            {
+                Content = membershipCardButton,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HasShadow = true,
+                BackgroundColor = Color.FromHex("#d8d8d8"),
+                CornerRadius = 10,
+                Padding = 1,
+                Margin = new Thickness(20, 10),
+            };
+            var otherCardButton = new Button
+            {
+                Text = "Other",
+                FontSize = 30,
+                FontAttributes = FontAttributes.Bold,
+                BackgroundColor = Color.FromHex("#cc9933"),
+                Command = _viewModel.OtherCardsCommand,
+            };
+            var otherCardFrame = new Frame()
+            {
+                Content = otherCardButton,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HasShadow = true,
+                BackgroundColor = Color.FromHex("#d8d8d8"),
+                CornerRadius = 10,
+                Padding = 1,
+                Margin = new Thickness(20, 10),
             };
 
             layout.Children.Add(header);
-            layout.Children.Add(viewCards);
-            layout.Children.Add(addCards);
+            layout.Children.Add(giftCardFrame);
+            layout.Children.Add(loyaltyCardFrame);
+            layout.Children.Add(membershipCardFrame);
+            layout.Children.Add(otherCardFrame);
+
+
+
 
 
             return layout;

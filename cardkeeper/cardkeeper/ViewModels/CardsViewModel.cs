@@ -24,14 +24,28 @@ namespace cardkeeper.ViewModels
                     isEmpty = value;
                     OnPropertyChanged("IsEmpty");
                 } } }
+        private string cardType;
+        public string CardType
+        {
+            get { return cardType; }
+            set
+            {
+                if (cardType != value)
+                {
+                    cardType = value;
+                    OnPropertyChanged("CardType");
+                }
+            }
+        }
 
         public ICommand LoadCardsCommand { get; set; }
         public INavigation Navigation { get; set; }
 
 
-        public CardsViewModel()
+        public CardsViewModel(string cardType)
         {
             Cards = new ObservableRangeCollection<Card>();
+            this.cardType = cardType;
             isEmpty = false;
             LoadCardsCommand = new Command(ExecuteLoadCardsCommand);
         }

@@ -16,10 +16,10 @@ namespace cardkeeper.Views
 	{
 
         AddCardViewModel _viewModel;
-        public AddCardPage ()
+        public AddCardPage (string cardType)
 		{
 			InitializeComponent ();
-            _viewModel = new AddCardViewModel();
+            _viewModel = new AddCardViewModel(cardType);
             Content = LayoutAddCardPage();
             _viewModel.Navigation = Navigation;
             BindingContext = _viewModel;
@@ -28,6 +28,8 @@ namespace cardkeeper.Views
         {
             var layout = new StackLayout();
 
+
+            // ACCOUNT NUMBER 
             var accountLabel = new Label
             {
                 Text = "Account Number"
@@ -36,33 +38,49 @@ namespace cardkeeper.Views
             {
                 Text = "Account Number",
                 Keyboard = Keyboard.Numeric,
-               
             };
             accountNumber.SetBinding(Entry.TextProperty, new Binding(path: "AccountNumber", source: _viewModel.Card));
+            layout.Children.Add(accountLabel);
+            layout.Children.Add(accountNumber);
 
-            var balanceLabel = new Label
+            // BALANCE
+            if(_viewModel.CardType == "Gift")
             {
-                Text = "Card Balance"
+                var balanceLabel = new Label
+                {
+                    Text = "Card Balance"
+                };
+                var balance = new Entry
+                {
+                    Text = "Card Balance",
+                    Keyboard = Keyboard.Numeric,
+                };
+                balance.SetBinding(Entry.TextProperty, new Binding(path: "Balance", source: _viewModel.Balance));
+                layout.Children.Add(balanceLabel);
+                layout.Children.Add(balance);
+            }
+
+            Label frontPhotoLabel = new Label()
+            {
+                Text = "Front Photo Needed"
             };
-            var balance = new Entry
-            {
-                Text = "Card Balance",
-                Keyboard = Keyboard.Numeric,
-                      };
-            balance.SetBinding(Entry.TextProperty, new Binding(path: "Balance", source: _viewModel.Balance));
+            layout.Children.Add(frontPhotoLabel);
 
-        //     balance.SetBinding(Entry.TextProperty, new Binding(path: "Balance", converter: new DecimalConverter(), source: _viewModel.Card));
+
+            if (_viewModel.CardType == "Other")
+            {
+                Label backPhotoLabel = new Label()
+                {
+                    Text = "Back Photo Needed"
+                };
+                layout.Children.Add(backPhotoLabel);
+            }
 
             var submitButton = new Button
             {
                 Text = "Sumbit",
                 Command = _viewModel.SubmitButtonCommand
             };
-
-            layout.Children.Add(accountLabel);
-            layout.Children.Add(accountNumber);
-            layout.Children.Add(balanceLabel);
-            layout.Children.Add(balance);
             layout.Children.Add(submitButton);
 
             return layout;

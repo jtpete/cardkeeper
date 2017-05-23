@@ -147,7 +147,8 @@ namespace cardkeeper.Views
                 CornerRadius = 20,
                 Padding = -10,
                 Margin = new Thickness(10, 10),
-            }; var tapGestureOnFrame = new TapGestureRecognizer();
+            };
+            var tapGestureOnFrame = new TapGestureRecognizer();
             tapGestureOnFrame.Tapped += (s, e) =>
             {
                 if (cardTaps % 2 == 0)

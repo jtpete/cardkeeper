@@ -11,13 +11,16 @@ using Xamarin.Forms.Xaml;
 namespace cardkeeper.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    
     public partial class CardsPage : ContentPage
     {
         CardsViewModel _viewModel;
-        public CardsPage()
+        private string cardType;
+        public CardsPage(string cardType)
         {
             InitializeComponent();
-            _viewModel = new CardsViewModel();
+            this.cardType = cardType;
+            _viewModel = new CardsViewModel(cardType);
             _viewModel.Navigation = Navigation;
            BindingContext = _viewModel;
         }
@@ -39,7 +42,7 @@ namespace cardkeeper.Views
         }
         async void AddCardClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AddCardPage());
+            await Navigation.PushAsync(new AddCardPage(cardType));
         }
     }
 }

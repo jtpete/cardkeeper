@@ -37,6 +37,11 @@ namespace cardkeeper.Helpers
             return $"http://api.qrserver.com/v1/create-qr-code/?data={accountNumber}&size=150x150";
 
         }
+        public static string GetWeatherService(string accountNumber)
+        {
+            string weatherKey = "fb8f729d0a513505";
 
+            return $"http://api.wunderground.com/api/{weatherKey}/conditions/q/WI/Franklin.json";
+        }
     }
 }

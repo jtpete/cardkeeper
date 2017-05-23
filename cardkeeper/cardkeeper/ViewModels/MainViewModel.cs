@@ -12,8 +12,10 @@ namespace cardkeeper.ViewModels
 {
     class MainViewModel : ContentPage
     {
-        public ICommand AddCardCommand { get; set; }
-        public ICommand ViewCardsCommand { get; set; }
+        public ICommand GiftCardsCommand { get; set; }
+        public ICommand LoyaltyCardsCommand { get; set; }
+        public ICommand MembershipCardsCommand { get; set; }
+        public ICommand OtherCardsCommand { get; set; }
 
         public INavigation Navigation { get; set; }
 
@@ -21,16 +23,32 @@ namespace cardkeeper.ViewModels
         {
       //      File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "cardKeeperDB.db3"));
             Database.InitializeDatabase();
-            AddCardCommand = new Command(GoToAddCardPage);
-            ViewCardsCommand = new Command(GoToViewCardsPage);
+            GiftCardsCommand = new Command(GiftViewCardsPage);
+            LoyaltyCardsCommand = new Command(LoyaltyViewCardsPage);
+            MembershipCardsCommand = new Command(MembershipViewCardsPage);
+            OtherCardsCommand = new Command(OtherViewCardsPage);
+
         }
-        public async void GoToAddCardPage()
+        public async void GiftViewCardsPage()
         {
-            await Navigation.PushAsync(new AddCardPage());
+            string cardType = "Gift";
+           await Navigation.PushAsync(new CardsPage(cardType));
         }
-        public async void GoToViewCardsPage()
+        public async void LoyaltyViewCardsPage()
         {
-           await Navigation.PushAsync(new CardsPage());
+            string cardType = "Loyalty";
+            await Navigation.PushAsync(new CardsPage(cardType));
         }
+        public async void MembershipViewCardsPage()
+        {
+            string cardType = "Membership";
+            await Navigation.PushAsync(new CardsPage(cardType));
+        }
+        public async void OtherViewCardsPage()
+        {
+            string cardType = "Other";
+            await Navigation.PushAsync(new CardsPage(cardType));
+        }
+
     }
 }
