@@ -6,7 +6,8 @@
     x:Name="BrowseItemsPage"
     Title="Your Cards">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout
+            BackgroundColor="#2a2a2a">
             <ListView
                 x:Name="CardsListView"
                 CachingStrategy="RecycleElement"
@@ -20,15 +21,36 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10">
-                                <Label
-                                    FontSize="16"
+                            <StackLayout 
+                                Padding="10"
+                                 Orientation="Horizontal">
+                                <Frame
+                                    OutlineColor = "Black"
+                                    HorizontalOptions = "FillAndExpand"
+                                    VerticalOptions = "FillAndExpand"
+                                    HasShadow = "true"
+                                    BackgroundColor = "White"
+                                    CornerRadius = "20"
+                                    Padding="-10">
+                                    <Grid>
+                                        <Image Source="giftcard.png"
+                                               Aspect="Fill"/>
+                                        <Image Source="{Binding FrontCard}"
+                                               Aspect="Fill"/>
+                                    </Grid>
+                                </Frame>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                    FontSize="25"
+                                    TextColor="White"
                                     LineBreakMode="NoWrap"
-                                    Text="{Binding AccountNumber}" />
-                                <Label
-                                    FontSize="13"
+                                    Text="$" />
+                                    <Label
+                                    FontSize="25"
+                                    TextColor="White"
                                     LineBreakMode="NoWrap"
                                     Text="{Binding Balance}" />
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
