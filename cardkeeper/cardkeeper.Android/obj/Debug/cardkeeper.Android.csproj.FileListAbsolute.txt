@@ -63,3 +63,6 @@ C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\D
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\Xamarin.Forms.Core.dll.mdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\Xamarin.Forms.Platform.Android.dll.mdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\Xamarin.Forms.Xaml.dll.mdb
+C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\res\drawable\loyaltycard.png
+C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\res\drawable\memberscard.png
+C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\res\drawable\healthcard.png

@@ -92,7 +92,10 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Content Include="Assets\cklogo.png" />
     <Content Include="Assets\giftcard.png" />
+    <Content Include="Assets\healthcard.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\loyaltycard.png" />
+    <Content Include="Assets\memberscard.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />

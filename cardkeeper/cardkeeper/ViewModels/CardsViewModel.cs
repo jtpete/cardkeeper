@@ -17,7 +17,21 @@ namespace cardkeeper.ViewModels
     class CardsViewModel : ContentPage, INotifyPropertyChanged
     {
         public ObservableRangeCollection<Card> Cards { get; set; }
+        private ImageSource defaultFrontPicture;
+        public ImageSource DefaultFrontPicture
+        {
+            get { return defaultFrontPicture; }
+            set
+            {
+                if (defaultFrontPicture != value)
+                {
+                    defaultFrontPicture = value;
+                    OnPropertyChanged("DefaultFrontPicture");
+                }
+            }
+        }
         private bool isEmpty;
+     
         public bool IsEmpty { get { return isEmpty; }
             set { if (isEmpty != value)
                 {
@@ -46,8 +60,35 @@ namespace cardkeeper.ViewModels
         {
             Cards = new ObservableRangeCollection<Card>();
             this.cardType = cardType;
+            SetDefaultPhoto();
             isEmpty = false;
             LoadCardsCommand = new Command(ExecuteLoadCardsCommand);
+        }
+        private void SetDefaultPhoto()
+        {
+            switch (cardType)
+            {
+                case "Gift":
+                    {
+                        defaultFrontPicture = ImageSource.FromFile("giftcard.png");
+                        break;
+                    }
+                case "Loyalty":
+                    {
+                        defaultFrontPicture = ImageSource.FromFile("loyaltycard.png");
+                        break;
+                    }
+                case "Membership":
+                    {
+                        defaultFrontPicture = ImageSource.FromFile("memberscard.png");
+                        break;
+                    }
+                case "Other":
+                    {
+                        defaultFrontPicture = ImageSource.FromFile("healthcard.png");
+                        break;
+                    }
+            }
         }
         void ExecuteLoadCardsCommand()
         {

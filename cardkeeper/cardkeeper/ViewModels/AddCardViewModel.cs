@@ -40,7 +40,7 @@ namespace cardkeeper.ViewModels
         }
         public async void ValidateCard()
         {
-            bool addThisCard = false;
+            bool doNotAddCard = false;
             switch (cardType)
             {
                 case "Gift":
@@ -51,7 +51,7 @@ namespace cardkeeper.ViewModels
                         {
                             Card.Type = cardType;
                             Card.Balance = Converter.ConvertStringToDouble(Balance);
-                            addThisCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}\nBalance: ${Card.Balance.ToString("0.00")}", "Yes", "No");
+                            doNotAddCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}\nBalance: ${Card.Balance.ToString("0.00")}", "No", "Yes");
                         }
                         break;
                     }
@@ -66,12 +66,12 @@ namespace cardkeeper.ViewModels
                         else
                         {
                             Card.Type = cardType;
-                            addThisCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}", "Yes", "No");
+                            doNotAddCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}", "No", "Yes");
                         }
                         break;
                     }
             }
-            if (addThisCard)
+            if (!doNotAddCard)
             {
                 AddCardToDatabaseAsync();
             }

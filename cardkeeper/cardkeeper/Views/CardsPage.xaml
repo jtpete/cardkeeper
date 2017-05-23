@@ -3,12 +3,12 @@
     x:Class="cardkeeper.Views.CardsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Name="BrowseItemsPage"
+    x:Name="BrowseCardsPage"
     Title="{Binding CardType}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="AddCardClicked" Text="Add Card" />
     </ContentPage.ToolbarItems>
-    <ContentPage.Content>
+    <!--<ContentPage.Content>
         <StackLayout BackgroundColor="#2a2a2a">
             <Label
                 FontSize="25"
@@ -38,7 +38,7 @@
                                     OutlineColor="Black"
                                     VerticalOptions="FillAndExpand">
                                     <Grid>
-                                        <Image Aspect="Fill" Source="giftcard.png" />
+                                        <Image Aspect="Fill" Source="{Binding DefaultFrontPicture}" />
                                         <Image Aspect="Fill" Source="{Binding FrontCard}" />
                                     </Grid>
                                 </Frame>
@@ -60,5 +60,5 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-    </ContentPage.Content>
+    </ContentPage.Content>-->
 </ContentPage>

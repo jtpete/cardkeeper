@@ -106,15 +106,10 @@ namespace cardkeeper.Views
         }
         private View CardLayout()
         {
-            int cardTaps = 0;
-            ImageSource frontCard;
-            if (_viewModel.Card.FrontImage != null)
-                frontCard = Converter.ByteToImage(_viewModel.Card.FrontImage);
-            else
-                frontCard = ImageSource.FromFile("giftcard.png");
+            int cardTaps = 0;         
             Image detailCard = new Image()
             {
-                Source = frontCard,
+                Source = _viewModel.Card.FrontImage,
                 Aspect = Aspect.Fill,
             };
             var tapGestureOnImage = new TapGestureRecognizer();
@@ -124,7 +119,7 @@ namespace cardkeeper.Views
                 if (cardTaps % 2 == 0)
                 {
                     detailCard.FadeTo(0, 250);
-                    detailCard.Source = frontCard;
+                    detailCard.Source = _viewModel.Card.FrontImage;
                     detailCard.FadeTo(1, 250);
                 }
                 else
