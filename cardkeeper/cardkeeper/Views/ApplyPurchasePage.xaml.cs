@@ -16,7 +16,9 @@ namespace cardkeeper.Views
 	public partial class ApplyPurchasePage : ContentPage
 	{
         public Card Card { get; set; }
-		public ApplyPurchasePage (Card card)
+        Editor purchasePrice;
+
+        public ApplyPurchasePage (Card card)
 		{
 			InitializeComponent ();
             Card = card;
@@ -27,31 +29,41 @@ namespace cardkeeper.Views
         {
             StackLayout layout = new StackLayout()
             {
-                BackgroundColor = Color.FromHex("#2a2a2a"),
+                BackgroundColor = Color.White,
             };
 
             Label purchaseLabel = new Label()
             {
                 Text = "Pruchase Price: ",
-                TextColor = Color.White,
+                TextColor = Color.Black,
             };
-            Editor purchasePrice = new Editor()
+            purchasePrice = new Editor()
             {
                 Keyboard = Keyboard.Numeric,
-                TextColor = Color.White,
+                TextColor = Color.Black,
             };
-            purchasePrice.Completed += ApplyPurchase;
+
+            Button doneButton = new Button()
+            {
+                Text = "Done",
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+            };
+            doneButton.Clicked += ApplyPurchase;
 
             layout.Children.Add(purchaseLabel);
             layout.Children.Add(purchasePrice);
+            layout.Children.Add(doneButton);
 
             return layout;
             
         }
         public async void ApplyPurchase(object sender, EventArgs e)
         {
-            string text = ((Editor)sender).Text;
-            double purchaseAmount = Converter.ConvertStringToDouble(text);
+            if (purchasePrice.Text == null)
+            {
+                purchasePrice.Text = "0";
+            }
+            double purchaseAmount = Converter.ConvertStringToDouble(purchasePrice.Text);
             double newBalance = Card.Balance;
             if (newBalance - purchaseAmount > 0)
                 newBalance -= purchaseAmount;

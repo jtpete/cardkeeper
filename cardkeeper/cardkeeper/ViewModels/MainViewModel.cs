@@ -1,4 +1,6 @@
-﻿using cardkeeper.Views;
+﻿using cardkeeper.Helpers;
+using cardkeeper.Views;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +19,8 @@ namespace cardkeeper.ViewModels
 
         public MainViewModel()
         {
-     //      File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "cardKeeperDB.db3"));
+      //      File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "cardKeeperDB.db3"));
+            Database.InitializeDatabase();
             AddCardCommand = new Command(GoToAddCardPage);
             ViewCardsCommand = new Command(GoToViewCardsPage);
         }

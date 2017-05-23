@@ -46,7 +46,7 @@ namespace cardkeeper.ViewModels
                 if (Card.QRCode != null)
                 {
                     Database.AddCard(Card);
-                    await Navigation.PopToRootAsync();
+                    await Navigation.PopAsync();
                 }
                 else
                 {
@@ -54,7 +54,7 @@ namespace cardkeeper.ViewModels
                     if (Card.QRCode != null)
                     {
                         Database.AddCard(Card);
-                        await Navigation.PopToRootAsync();
+                        await Navigation.PopAsync();
                     }
                     else
                     {

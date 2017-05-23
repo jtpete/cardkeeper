@@ -4,10 +4,19 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Name="BrowseItemsPage"
-    Title="Your Cards">
+    Icon="cklogo.png">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Text="Add Card" 
+            Clicked="AddCardClicked" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout
-            BackgroundColor="#2a2a2a">
+        <StackLayout BackgroundColor="#2a2a2a">
+            <Label
+                FontSize="25"
+                IsVisible="{Binding IsEmpty}"
+                Text="No Cards"
+                TextColor="White" />
             <ListView
                 x:Name="CardsListView"
                 CachingStrategy="RecycleElement"
@@ -21,35 +30,31 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout 
-                                Padding="10"
-                                 Orientation="Horizontal">
+                            <StackLayout Padding="10" Orientation="Horizontal">
                                 <Frame
-                                    OutlineColor = "Black"
-                                    HorizontalOptions = "FillAndExpand"
-                                    VerticalOptions = "FillAndExpand"
-                                    HasShadow = "true"
-                                    BackgroundColor = "White"
-                                    CornerRadius = "20"
-                                    Padding="-10">
+                                    Padding="-10"
+                                    BackgroundColor="White"
+                                    CornerRadius="20"
+                                    HasShadow="true"
+                                    HorizontalOptions="FillAndExpand"
+                                    OutlineColor="Black"
+                                    VerticalOptions="FillAndExpand">
                                     <Grid>
-                                        <Image Source="giftcard.png"
-                                               Aspect="Fill"/>
-                                        <Image Source="{Binding FrontCard}"
-                                               Aspect="Fill"/>
+                                        <Image Aspect="Fill" Source="giftcard.png" />
+                                        <Image Aspect="Fill" Source="{Binding FrontCard}" />
                                     </Grid>
                                 </Frame>
                                 <StackLayout Orientation="Horizontal">
                                     <Label
-                                    FontSize="25"
-                                    TextColor="White"
-                                    LineBreakMode="NoWrap"
-                                    Text="$" />
+                                        FontSize="25"
+                                        LineBreakMode="NoWrap"
+                                        Text="$"
+                                        TextColor="White" />
                                     <Label
-                                    FontSize="25"
-                                    TextColor="White"
-                                    LineBreakMode="NoWrap"
-                                    Text="{Binding Balance}" />
+                                        FontSize="25"
+                                        LineBreakMode="NoWrap"
+                                        Text="{Binding Balance}"
+                                        TextColor="White" />
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

@@ -37,5 +37,9 @@ namespace cardkeeper.Views
             base.OnAppearing();
             _viewModel.LoadCardsCommand.Execute(null);
         }
+        async void AddCardClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddCardPage());
+        }
     }
 }
