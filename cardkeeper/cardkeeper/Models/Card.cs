@@ -24,6 +24,7 @@ namespace cardkeeper.Models
             }
         }
         public byte[] FrontImage { get; set; }
+        public byte[] BackImage { get; set; }
         public byte[] QRCode { get; set; }
         private double balance;
         public double Balance

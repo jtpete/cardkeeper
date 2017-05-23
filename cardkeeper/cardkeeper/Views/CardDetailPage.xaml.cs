@@ -1,4 +1,5 @@
-﻿using cardkeeper.Helpers;
+﻿
+using cardkeeper.Helpers;
 using cardkeeper.Models;
 using cardkeeper.ViewModels;
 using System;
@@ -25,57 +26,147 @@ namespace cardkeeper.Views
         }
         public View LayoutCardDetailPage()
         {
-            var layout = new StackLayout();
 
-            var row1 = new StackLayout()
+            var pageLayout = new StackLayout()
             {
-                Orientation = StackOrientation.Horizontal,
+                BackgroundColor = Color.FromHex("#2a2a2a"),
+            };
+            
+
+            // Account Row Layout
+            var accountRow = new StackLayout()
+            {
+                Orientation = StackOrientation.Vertical,
             };
             var accountLabel = new Label
             {
-                Text = "Account Number:"
+                Text = "Account:",
+                FontSize = 12,
+                TextColor = Color.White,
+                Margin = new Thickness(0, 20, 0, -15)
             };
             var accountNumber = new Label
             {
                 Text = $"{_viewModel.Card.AccountNumber}",
+                FontSize = 30,
+                TextColor = Color.White,
+                Margin = new Thickness(0,0,0,25)
             };
-            row1.Children.Add(accountLabel);
-            row1.Children.Add(accountNumber);
-            var row2 = new StackLayout()
+            accountRow.Children.Add(accountLabel);
+            accountRow.Children.Add(accountNumber);
+
+
+            // Balance Row Layout
+            var balanceRow = new Grid() { Margin = new Thickness(0,0,0,30)};
+            balanceRow.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            balanceRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            balanceRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+       
+            var applyPurchase = new Button()
             {
-                Orientation = StackOrientation.Horizontal,
-            };
-            var balanceLabel = new Label
-            {
-                Text = "Balance: $"
+                Text = "Apply Purchase",
+                Command = _viewModel.ApplyPurchaseButtonCommand,
             };
             var balance = new Label
             {
-                Text = $"{_viewModel.Card.Balance}",
+                Text = $"${_viewModel.Card.Balance.ToString("0.00")}",
+                FontSize = 30,
+                TextColor = Color.White,
             };
-            ImageSource qrCode = Converter.ByteToImage(_viewModel.Card.QRCode);
-            var qrCodeImage = new Image
-            {
-                Source = qrCode,
-                Aspect = Aspect.AspectFit,
-            };
-            row2.Children.Add(balanceLabel);
-            row2.Children.Add(balance);
+            balanceRow.Children.Add(balance, 0, 0);
+            balanceRow.Children.Add(applyPurchase, 1, 0);
 
+            // Other Elements
+            var flipLabel = new Label()
+            {
+                Text = "Tap card to flip.",
+                FontSize = 12,
+                TextColor = Color.White,
+                Margin = new Thickness(0, 0, 0, -15),
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.End,
+            };
             var removeButton = new Button
             {
                 Text = "Remove",
                 Command = _viewModel.RemoveButtonCommand,
+                HorizontalOptions = LayoutOptions.End,
             };
 
-            layout.Children.Add(row1);
-            layout.Children.Add(row2);
-            layout.Children.Add(qrCodeImage);
-            layout.Children.Add(removeButton);
+
+            pageLayout.Children.Add(balanceRow);
+            pageLayout.Children.Add(flipLabel);
+            pageLayout.Children.Add(CardLayout());
+            pageLayout.Children.Add(accountRow);
+            pageLayout.Children.Add(removeButton);
 
 
-            return layout;
+            return pageLayout;
 
         }
-	}
+        private View CardLayout()
+        {
+            int cardTaps = 0;
+            ImageSource frontCard;
+            if (_viewModel.Card.FrontImage != null)
+                frontCard = Converter.ByteToImage(_viewModel.Card.FrontImage);
+            else
+                frontCard = ImageSource.FromFile("giftcard.png");
+            Image detailCard = new Image()
+            {
+                Source = frontCard,
+                Aspect = Aspect.Fill,
+            };
+            var tapGestureOnImage = new TapGestureRecognizer();
+            tapGestureOnImage.Tapped += (s, e) =>
+            {
+                cardTaps++;
+                if (cardTaps % 2 == 0)
+                {
+                    detailCard.FadeTo(0, 250);
+                    detailCard.Source = frontCard;
+                    detailCard.FadeTo(1, 250);
+                }
+                else
+                {
+                    detailCard.FadeTo(0, 250);
+                    detailCard.Source = Converter.ByteToImage(_viewModel.Card.QRCode);
+                    detailCard.FadeTo(1, 250);
+                }
+            };
+            detailCard.GestureRecognizers.Add(tapGestureOnImage);
+
+            var frame = new Frame()
+            {
+                Content = detailCard,
+                OutlineColor = Color.Black,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HasShadow = true,
+                BackgroundColor = Color.White,
+                CornerRadius = 20,
+                Padding = -10,
+                Margin = new Thickness(10, 10),
+            }; var tapGestureOnFrame = new TapGestureRecognizer();
+            tapGestureOnFrame.Tapped += (s, e) =>
+            {
+                if (cardTaps % 2 == 0)
+                {
+                    frame.Padding = -10;
+                }
+                else
+                {
+                    frame.Padding = new Thickness(90, 40);
+                }
+            };
+            detailCard.GestureRecognizers.Add(tapGestureOnFrame);
+
+            return frame;
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.LoadCardCommand.Execute(null);
+        }
+    }
 }

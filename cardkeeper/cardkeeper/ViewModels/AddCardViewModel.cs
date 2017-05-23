@@ -9,8 +9,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using System.IO;
 using SQLite;
-
-
+using System.Reflection;
 
 namespace cardkeeper.ViewModels
 {
@@ -43,9 +42,26 @@ namespace cardkeeper.ViewModels
 
             if (!action)
             {
-                Card.QRCode = await API.GetQRCode(Card.AccountNumber);
-                await Database.AddCardAsync(Card); 
-                await Navigation.PopToRootAsync();
+                Card.QRCode = await API.GetQRCode(API.GetGoogleQRCodeService(Card.AccountNumber));
+                if (Card.QRCode != null)
+                {
+                    Database.AddCard(Card);
+                    await Navigation.PopToRootAsync();
+                }
+                else
+                {
+                    Card.QRCode = await API.GetQRCode(API.GetOtherQRCodeService(Card.AccountNumber));
+                    if (Card.QRCode != null)
+                    {
+                        Database.AddCard(Card);
+                        await Navigation.PopToRootAsync();
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error With Card.", "It seems we had an error adding this card.  Please try back later.", "Ok");
+                        await Navigation.PopToRootAsync();
+                    }
+                }
             }
             else
                 await Navigation.PopAsync();

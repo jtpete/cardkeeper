@@ -7,15 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+
 namespace cardkeeper.Helpers
 {
     public static class API
     {
-        public static async Task<byte[]> GetQRCode(string accountNumber)
+        public static async Task<byte[]> GetQRCode(string url)
         {
             try
             {
-                string url = $"http://api.qrserver.com/v1/create-qr-code/?data={accountNumber}!&size=150x150";
                 WebRequest request = WebRequest.Create(url);
                 WebResponse response = await request.GetResponseAsync();
                 BinaryReader reader = new BinaryReader(response.GetResponseStream());
@@ -27,6 +27,15 @@ namespace cardkeeper.Helpers
                 Debug.WriteLine(ex);
             }
             return null;
+        }
+        public static string GetGoogleQRCodeService(string accountNumber)
+        {
+            return $"https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl={accountNumber}";
+        }
+        public static string GetOtherQRCodeService(string accountNumber)
+        {
+            return $"http://api.qrserver.com/v1/create-qr-code/?data={accountNumber}&size=150x150";
+
         }
 
     }

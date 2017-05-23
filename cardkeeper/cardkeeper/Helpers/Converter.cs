@@ -20,6 +20,5 @@ namespace cardkeeper.Helpers
         {
             return ImageSource.FromStream(() => new MemoryStream(imageData));
         }
-
     }
 }
