@@ -69,10 +69,15 @@ namespace cardkeeper.Views
             };
             var balance = new Label
             {
-                Text = $"${_viewModel.Card.Balance.ToString("0.00")}",
+                Text = _viewModel.Card.DisplayBalance,
                 FontSize = 30,
                 TextColor = Color.White,
             };
+            if (_viewModel.Card.Type != "Gift")
+            {
+                applyPurchase.IsVisible = false;
+                balance.IsVisible = false;
+            }
             balanceRow.Children.Add(balance, 0, 0);
             balanceRow.Children.Add(applyPurchase, 1, 0);
 
@@ -93,7 +98,6 @@ namespace cardkeeper.Views
                 HorizontalOptions = LayoutOptions.End,
             };
 
-
             pageLayout.Children.Add(balanceRow);
             pageLayout.Children.Add(flipLabel);
             pageLayout.Children.Add(CardLayout());
@@ -109,7 +113,7 @@ namespace cardkeeper.Views
             int cardTaps = 0;         
             Image detailCard = new Image()
             {
-                Source = _viewModel.Card.FrontImage,
+                Source = _viewModel.Card.DisplayFrontImage,
                 Aspect = Aspect.Fill,
             };
             var tapGestureOnImage = new TapGestureRecognizer();
@@ -119,7 +123,7 @@ namespace cardkeeper.Views
                 if (cardTaps % 2 == 0)
                 {
                     detailCard.FadeTo(0, 250);
-                    detailCard.Source = _viewModel.Card.FrontImage;
+                    detailCard.Source = _viewModel.Card.DisplayFrontImage;
                     detailCard.FadeTo(1, 250);
                 }
                 else

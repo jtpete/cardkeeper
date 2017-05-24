@@ -25,7 +25,10 @@ namespace cardkeeper.Models
             }
         }
         private byte[] frontImage;
-        public ImageSource FrontImage
+        
+        public byte[] FrontImage { get {return frontImage;} set{frontImage = value;} }
+        [Ignore]
+        public ImageSource DisplayFrontImage
         {
             get
             {
@@ -47,7 +50,7 @@ namespace cardkeeper.Models
             }
             set
             {
-             
+
             }
         }
         public byte[] BackImage { get; set; }
@@ -61,6 +64,17 @@ namespace cardkeeper.Models
                 balance = value;
                 OnPropertyChanged("Balance");
             }
+        }
+        public string DisplayBalance
+        {
+            get
+            {
+                if (Type == "Gift")
+                    return "$" + balance.ToString("0.00");
+                else
+                    return "";
+            }
+            set { }
         }
         private string type;
         public string Type

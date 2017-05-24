@@ -50,11 +50,13 @@ namespace cardkeeper.Views
 
             DataTemplate dt = new DataTemplate(()=>
             {
-                StackLayout cellLayout = new StackLayout()
-                {
-                    Padding = 10,
-                    Orientation = StackOrientation.Horizontal
-                };
+                Grid cellLayout = new Grid();
+                cellLayout.Padding = 10;
+                cellLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(125) });
+                cellLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(175) });
+                cellLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+
                 Frame imageHolder = new Frame()
                 {
                     Padding = -10,
@@ -65,25 +67,20 @@ namespace cardkeeper.Views
                 };
                 Image frontOfCard = new Image()
                 {
-                    Aspect = Aspect.Fill,
+                    Aspect = Aspect.AspectFill
                 };
-                frontOfCard.SetBinding(Image.SourceProperty, "FrontImage");
+                frontOfCard.SetBinding(Image.SourceProperty, "DisplayFrontImage");
                 imageHolder.Content = frontOfCard;
-                cellLayout.Children.Add(imageHolder);
-                Label dollarSign = new Label()
-                {
-                    Text = "$",
-                    FontSize = 25,
-                    TextColor = Color.White,
-                };
                 Label balanceLabel = new Label()
                 {
                     FontSize = 25,
                     TextColor = Color.White,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center
                 };
-                balanceLabel.SetBinding(Label.TextProperty, "Balance");
-                cellLayout.Children.Add(dollarSign);
-                cellLayout.Children.Add(balanceLabel);
+                balanceLabel.SetBinding(Label.TextProperty, "DisplayBalance");
+                cellLayout.Children.Add(balanceLabel, 1,0);
+                cellLayout.Children.Add(imageHolder,0,0);
 
                 return new ViewCell { View = cellLayout };
             });

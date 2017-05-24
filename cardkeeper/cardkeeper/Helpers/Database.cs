@@ -107,13 +107,13 @@ namespace cardkeeper.Helpers
                 return null;
             }
         }
-        public static IEnumerable<Card> GetCards(bool forceRefresh = false)
+        public static IEnumerable<Card> GetCards(string cardType)
         {
             try
             {
                 string dbPath = GetDBPath();
                 var db = new SQLiteConnection(dbPath);
-                var card = db.Table<Card>();
+                var card = db.Table<Card>().Where(c => c.Type == cardType);
                 if (card.Count() != 0)
                     return card;
                 else

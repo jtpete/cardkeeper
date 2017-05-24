@@ -52,7 +52,7 @@ namespace cardkeeper.Views
             };
             var weather = new Label
             {
-                Text = "Weather",
+                Text = "",
                 HorizontalTextAlignment = TextAlignment.Center,
                 TextColor = Color.White,
             };

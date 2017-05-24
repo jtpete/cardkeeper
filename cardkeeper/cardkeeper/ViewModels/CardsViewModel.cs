@@ -96,7 +96,7 @@ namespace cardkeeper.ViewModels
                 return;
             IsBusy = true;
             Cards.Clear();
-            var cards = Database.GetCards();
+            var cards = Database.GetCards(cardType);
             if (cards != null)
             {
                 Cards.ReplaceRange(cards);
