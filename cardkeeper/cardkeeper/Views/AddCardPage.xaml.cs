@@ -59,12 +59,44 @@ namespace cardkeeper.Views
                 layout.Children.Add(balanceLabel);
                 layout.Children.Add(balance);
             }
+            Grid frontPhotoLayout = new Grid();
+            frontPhotoLayout.Padding = 10;
+            frontPhotoLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(125) });
+            frontPhotoLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            frontPhotoLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(175) });
 
-            Label frontPhotoLabel = new Label()
+            Frame imageHolder = new Frame()
             {
-                Text = "Front Photo Needed"
+                Padding = -10,
+                CornerRadius = 20,
+                HasShadow = true,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
             };
-            layout.Children.Add(frontPhotoLabel);
+            Image frontOfCard = new Image()
+            {
+                Aspect = Aspect.AspectFill
+            };
+            frontOfCard.Source = _viewModel.FrontImage;
+            frontOfCard.SetBinding(Entry.TextProperty, new Binding(path: "FrontImage", source: _viewModel.FrontImage));
+            imageHolder.Content = frontOfCard;
+            Button frontPhotoButton = new Button()
+            {
+                Text = "Take Photo",
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                Command = _viewModel.TakeFrontCardPhoto
+            };
+            frontPhotoLayout.Children.Add(frontPhotoButton,0,0);
+            frontPhotoLayout.Children.Add(imageHolder,1,0);
+            Grid.SetColumnSpan(imageHolder, 2);
+
+            Label takePhoto = new Label()
+            {
+                Text = "Take Front Of Card Photo:"
+            };
+            layout.Children.Add(takePhoto);
+            layout.Children.Add(frontPhotoLayout);
 
 
             if (_viewModel.CardType == "Other")

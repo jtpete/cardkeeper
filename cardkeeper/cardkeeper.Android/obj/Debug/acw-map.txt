@@ -2,6 +2,14 @@ cardkeeper.Droid.MainActivity, cardkeeper.Android;md5219763a490bef87f798fc9710a9
 cardkeeper.Droid.MainActivity, cardkeeper.Android, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5219763a490bef87f798fc9710a97c18e.MainActivity
 cardkeeper.Droid.MainActivity;md5219763a490bef87f798fc9710a97c18e.MainActivity
 cardkeeper.droid.MainActivity;md5219763a490bef87f798fc9710a97c18e.MainActivity
+cardkeeper.Droid.MainApplication, cardkeeper.Android;md5219763a490bef87f798fc9710a97c18e.MainApplication
+cardkeeper.Droid.MainApplication, cardkeeper.Android, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5219763a490bef87f798fc9710a97c18e.MainApplication
+cardkeeper.Droid.MainApplication;md5219763a490bef87f798fc9710a97c18e.MainApplication
+cardkeeper.droid.MainApplication;md5219763a490bef87f798fc9710a97c18e.MainApplication
+Plugin.Media.MediaPickerActivity, Plugin.Media;md5a3e164e78ade0c22cefea770ddd0bc49.MediaPickerActivity
+Plugin.Media.MediaPickerActivity, Plugin.Media, Version=2.6.2.0, Culture=neutral, PublicKeyToken=null;md5a3e164e78ade0c22cefea770ddd0bc49.MediaPickerActivity
+Plugin.Media.MediaPickerActivity;md5a3e164e78ade0c22cefea770ddd0bc49.MediaPickerActivity
+plugin.media.MediaPickerActivity;md5a3e164e78ade0c22cefea770ddd0bc49.MediaPickerActivity
 Android.Support.Design.Widget.Snackbar/SnackbarActionClickImplementor, Xamarin.Android.Support.Design;android.support.design.widget.Snackbar_SnackbarActionClickImplementor
 Android.Support.Design.Widget.Snackbar+SnackbarActionClickImplementor, Xamarin.Android.Support.Design, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;android.support.design.widget.Snackbar_SnackbarActionClickImplementor
 Android.Support.Design.Widget.Snackbar.SnackbarActionClickImplementor;android.support.design.widget.Snackbar_SnackbarActionClickImplementor
