@@ -26,13 +26,23 @@ namespace cardkeeper.Views
         }
         public View LayoutCardDetailPage()
         {
-
-            var pageLayout = new StackLayout()
+            Grid pageLayout = new Grid()
             {
                 BackgroundColor = Color.FromHex("#2a2a2a"),
             };
+            pageLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            pageLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            pageLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            pageLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            pageLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            pageLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            pageLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            pageLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            pageLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            pageLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            pageLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            pageLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             
-
             // Account Row Layout
             var accountRow = new StackLayout()
             {
@@ -43,25 +53,17 @@ namespace cardkeeper.Views
                 Text = "Account:",
                 FontSize = 12,
                 TextColor = Color.White,
-                Margin = new Thickness(0, 20, 0, -15)
+                Margin = new Thickness(0, 0, 0, -15)
             };
             var accountNumber = new Label
             {
                 Text = $"{_viewModel.Card.AccountNumber}",
                 FontSize = 30,
                 TextColor = Color.White,
-                Margin = new Thickness(0,0,0,25)
             };
             accountRow.Children.Add(accountLabel);
             accountRow.Children.Add(accountNumber);
 
-
-            // Balance Row Layout
-            var balanceRow = new Grid() { Margin = new Thickness(0,0,0,30)};
-            balanceRow.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            balanceRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            balanceRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-       
             var applyPurchase = new Button()
             {
                 Text = "Apply Purchase",
@@ -79,8 +81,6 @@ namespace cardkeeper.Views
                 applyPurchase.IsVisible = false;
                 balance.IsVisible = false;
             }
-            balanceRow.Children.Add(balance, 0, 0);
-            balanceRow.Children.Add(applyPurchase, 1, 0);
 
             // Other Elements
             var flipLabel = new Label()
@@ -98,12 +98,26 @@ namespace cardkeeper.Views
                 Command = _viewModel.RemoveButtonCommand,
                 HorizontalOptions = LayoutOptions.End,
             };
+            pageLayout.Children.Add(balance, 0,0);
+            pageLayout.Children.Add(applyPurchase, 3, 0);
+            Grid.SetColumnSpan(balance, 5);
+            Grid.SetColumnSpan(applyPurchase, 3);
 
-            pageLayout.Children.Add(balanceRow);
-            pageLayout.Children.Add(flipLabel);
-            pageLayout.Children.Add(CardLayout());
-            pageLayout.Children.Add(accountRow);
-            pageLayout.Children.Add(removeButton);
+
+            pageLayout.Children.Add(flipLabel,2,0);
+            Grid.SetColumnSpan(flipLabel, 2);
+            View thisCardLayout = CardLayout();
+            pageLayout.Children.Add(thisCardLayout, 0,1);
+            Grid.SetColumnSpan(thisCardLayout, 6);
+            Grid.SetRowSpan(thisCardLayout, 4);
+
+
+            pageLayout.Children.Add(accountRow, 0, 5);
+            Grid.SetColumnSpan(accountRow, 3);
+
+            pageLayout.Children.Add(removeButton, 4,7);
+            Grid.SetColumnSpan(removeButton, 2);
+
 
 
             return pageLayout;

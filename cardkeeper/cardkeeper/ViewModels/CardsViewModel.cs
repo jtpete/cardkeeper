@@ -47,7 +47,7 @@ namespace cardkeeper.ViewModels
         {
             Cards = new ObservableRangeCollection<Card>();
             this.cardType = cardType;
-            isEmpty = false;
+            IsEmpty = false;
             LoadCardsCommand = new Command(ExecuteLoadCardsCommand);
         }
         void ExecuteLoadCardsCommand()
@@ -56,14 +56,15 @@ namespace cardkeeper.ViewModels
                 return;
             IsBusy = true;
             Cards.Clear();
+            IsEmpty = false;
             var cards = Database.GetCards(cardType);
             if (cards != null)
             {
                 Cards.ReplaceRange(cards);
-                isEmpty = false;
+                IsEmpty = false;
             }
             else
-                isEmpty = true;
+                IsEmpty = true;
             IsBusy = false;
         }
     }

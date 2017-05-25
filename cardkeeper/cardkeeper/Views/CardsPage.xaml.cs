@@ -33,10 +33,10 @@ namespace cardkeeper.Views
             Label emptyLabel = new Label()
             {
                 FontSize = 25,
-                IsVisible = _viewModel.IsEmpty,
                 Text = "No Cards",
                 TextColor = Color.White,
             };
+            emptyLabel.SetBinding(Label.IsVisibleProperty, "IsEmpty");
             layout.Children.Add(emptyLabel);
 
             ListView lv = new ListView();
@@ -44,9 +44,11 @@ namespace cardkeeper.Views
             lv.ItemSelected += OnItemSelected;
             lv.ItemsSource = _viewModel.Cards;
             lv.RefreshCommand = _viewModel.LoadCardsCommand;
-            lv.IsRefreshing = _viewModel.IsBusy;
             lv.IsPullToRefreshEnabled = true;
             lv.HasUnevenRows = true;
+            lv.SetBinding(ListView.IsRefreshingProperty, "IsBusy");
+
+
 
             DataTemplate dt = new DataTemplate(()=>
             {

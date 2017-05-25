@@ -116,6 +116,5 @@ namespace cardkeeper.Views
 
             return layout;
         }
-
     }
 }
