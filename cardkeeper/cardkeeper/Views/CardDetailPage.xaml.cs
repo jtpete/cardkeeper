@@ -64,6 +64,24 @@ namespace cardkeeper.Views
             accountRow.Children.Add(accountLabel);
             accountRow.Children.Add(accountNumber);
 
+            if(_viewModel.Card.Label != null)
+            {
+                var labelRow = new StackLayout()
+                {
+                    Orientation = StackOrientation.Vertical,
+                };
+                var labelValue = new Label
+                {
+                    Text = $"{_viewModel.Card.Label}",
+                    FontSize = 25,
+                    TextColor = Color.White,
+                };
+                labelRow.Children.Add(labelValue);
+                pageLayout.Children.Add(labelRow, 0, 6);
+                Grid.SetColumnSpan(labelRow, 5);
+            }
+            
+
             var applyPurchase = new Button()
             {
                 Text = "Apply Purchase",
@@ -113,7 +131,8 @@ namespace cardkeeper.Views
 
 
             pageLayout.Children.Add(accountRow, 0, 5);
-            Grid.SetColumnSpan(accountRow, 3);
+            Grid.SetColumnSpan(accountRow, 5);
+
 
             pageLayout.Children.Add(removeButton, 4,7);
             Grid.SetColumnSpan(removeButton, 2);

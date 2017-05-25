@@ -112,6 +112,16 @@ namespace cardkeeper.Models
                 OnPropertyChanged("Type");
             }
         }
+        private string label;
+        public string Label
+        {
+            get { return label; }
+            set
+            {
+                label = value;
+                OnPropertyChanged("Label");
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)

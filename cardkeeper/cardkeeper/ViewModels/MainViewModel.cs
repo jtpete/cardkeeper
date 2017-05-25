@@ -21,7 +21,7 @@ namespace cardkeeper.ViewModels
 
         public MainViewModel()
         {
-    //        File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "cardKeeperDB.db3"));
+       //     File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "cardKeeperDB.db3"));
             Database.InitializeDatabase();
             GiftCardsCommand = new Command(GiftViewCardsPage);
             LoyaltyCardsCommand = new Command(LoyaltyViewCardsPage);

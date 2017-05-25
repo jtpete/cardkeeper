@@ -11,14 +11,14 @@ using Xamarin.Forms.Xaml;
 
 namespace cardkeeper.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AddCardPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class AddCardPage : ContentPage
+    {
 
         AddCardViewModel _viewModel;
-        public AddCardPage (string cardType)
-		{
-			InitializeComponent ();
+        public AddCardPage(string cardType)
+        {
+            InitializeComponent();
             _viewModel = new AddCardViewModel(cardType);
             Content = LayoutAddCardPage();
             _viewModel.Navigation = Navigation;
@@ -30,34 +30,63 @@ namespace cardkeeper.Views
 
 
             // ACCOUNT NUMBER 
+            StackLayout accountRow = new StackLayout();
+            accountRow.Orientation = StackOrientation.Horizontal;
             var accountLabel = new Label
             {
-                Text = "Account Number"
+                Text = "Account:",
+                HorizontalOptions = LayoutOptions.Start
+
             };
-            var accountNumber = new Entry
+            var accountEntry = new Entry
             {
-                Text = "Account Number",
                 Keyboard = Keyboard.Numeric,
+                HorizontalOptions = LayoutOptions.FillAndExpand
             };
-            accountNumber.SetBinding(Entry.TextProperty, new Binding(path: "AccountNumber", source: _viewModel.Card));
-            layout.Children.Add(accountLabel);
-            layout.Children.Add(accountNumber);
+            accountEntry.SetBinding(Entry.TextProperty, new Binding(path: "AccountNumber", source: _viewModel.Card));
+            accountRow.Children.Add(accountLabel);
+            accountRow.Children.Add(accountEntry);
+            layout.Children.Add(accountRow);
+
+
+            StackLayout labelRow = new StackLayout();
+            labelRow.Orientation = StackOrientation.Horizontal;
+            var customLabelLabel = new Label
+            {
+                Text = "Card Label:",
+                HorizontalOptions = LayoutOptions.Start
+
+            };
+            var labelEntry = new Entry
+            {
+                Keyboard = Keyboard.Default,
+                HorizontalOptions = LayoutOptions.FillAndExpand
+            };
+            labelEntry.SetBinding(Entry.TextProperty, new Binding(path: "Label", source: _viewModel.Card));
+            labelRow.Children.Add(customLabelLabel);
+            labelRow.Children.Add(labelEntry);
+            layout.Children.Add(labelRow);
 
             // BALANCE
-            if(_viewModel.CardType == "Gift")
+            if (_viewModel.CardType == "Gift")
             {
+                StackLayout balanceRow = new StackLayout();
+                balanceRow.Orientation = StackOrientation.Horizontal;
                 var balanceLabel = new Label
                 {
-                    Text = "Card Balance"
+                    Text = "Balance:",
+                    HorizontalOptions = LayoutOptions.Start
+
                 };
-                var balance = new Entry
+                var balanceEntry = new Entry
                 {
-                    Text = "Card Balance",
                     Keyboard = Keyboard.Numeric,
+                    HorizontalOptions = LayoutOptions.FillAndExpand
                 };
-                balance.SetBinding(Entry.TextProperty, new Binding(path: "Balance", source: _viewModel.Balance));
-                layout.Children.Add(balanceLabel);
-                layout.Children.Add(balance);
+                balanceEntry.SetBinding(Entry.TextProperty, new Binding(path: "Balance", source: _viewModel.Balance));
+                balanceRow.Children.Add(balanceLabel);
+                balanceRow.Children.Add(balanceEntry);
+                layout.Children.Add(balanceRow);
             }
 
             Label takeFrontPhoto = new Label()
