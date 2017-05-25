@@ -34,7 +34,7 @@ namespace cardkeeper.Views
 
             Label purchaseLabel = new Label()
             {
-                Text = "Pruchase Price: ",
+                Text = "Purchase Price: ",
                 TextColor = Color.Black,
             };
             purchasePrice = new Editor()
