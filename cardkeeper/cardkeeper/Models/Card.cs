@@ -53,7 +53,23 @@ namespace cardkeeper.Models
 
             }
         }
-        public byte[] BackImage { get; set; }
+        private byte[] backImage { get; set; }
+        public byte[] BackImage { get { return backImage; } set { backImage = value; } }
+        [Ignore]
+        public ImageSource DisplayBackImage
+        {
+            get
+            {
+                if (backImage != null)
+                    return Converter.ByteToImage(backImage);
+                else
+                    return null;
+            }
+            set
+            {
+
+            }
+        }
         public byte[] QRCode { get; set; }
         private double balance;
         public double Balance

@@ -59,6 +59,38 @@ namespace cardkeeper.Views
                 layout.Children.Add(balanceLabel);
                 layout.Children.Add(balance);
             }
+
+            Label takeFrontPhoto = new Label()
+            {
+                Text = "Take Front Of Card Photo:"
+            };
+            View frontPhotoLayout = LayoutFrontPhotoView();
+            layout.Children.Add(takeFrontPhoto);
+            layout.Children.Add(frontPhotoLayout);
+
+
+            if (_viewModel.CardType == "Other")
+            {
+                Label takeBackPhoto = new Label()
+                {
+                    Text = "Take Back Of Card Photo:"
+                };
+                View backPhotoLayout = LayoutBackPhotoView();
+                layout.Children.Add(takeBackPhoto);
+                layout.Children.Add(backPhotoLayout);
+            }
+
+            var submitButton = new Button
+            {
+                Text = "Sumbit",
+                Command = _viewModel.SubmitButtonCommand
+            };
+            layout.Children.Add(submitButton);
+
+            return layout;
+        }
+        public View LayoutFrontPhotoView()
+        {
             Grid frontPhotoLayout = new Grid();
             frontPhotoLayout.Padding = 10;
             frontPhotoLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(125) });
@@ -86,35 +118,48 @@ namespace cardkeeper.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Command = _viewModel.TakeFrontCardPhoto
             };
-            frontPhotoLayout.Children.Add(frontPhotoButton,0,0);
-            frontPhotoLayout.Children.Add(imageHolder, 1,0);
+            frontPhotoLayout.Children.Add(frontPhotoButton, 0, 0);
+            frontPhotoLayout.Children.Add(imageHolder, 1, 0);
             Grid.SetColumnSpan(imageHolder, 2);
 
-            Label takePhoto = new Label()
+
+            return (frontPhotoLayout);
+        }
+        public View LayoutBackPhotoView()
+        {
+            Grid backPhotoLayout = new Grid();
+            backPhotoLayout.Padding = 10;
+            backPhotoLayout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(125) });
+            backPhotoLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            backPhotoLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(175) });
+
+            Frame imageHolder = new Frame()
             {
-                Text = "Take Front Of Card Photo:"
+                Padding = -10,
+                CornerRadius = 20,
+                HasShadow = true,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
             };
-            layout.Children.Add(takePhoto);
-            layout.Children.Add(frontPhotoLayout);
-
-
-            if (_viewModel.CardType == "Other")
+            Image backOfCard = new Image()
             {
-                Label backPhotoLabel = new Label()
-                {
-                    Text = "Back Photo Needed"
-                };
-                layout.Children.Add(backPhotoLabel);
-            }
-
-            var submitButton = new Button
-            {
-                Text = "Sumbit",
-                Command = _viewModel.SubmitButtonCommand
+                Aspect = Aspect.AspectFill
             };
-            layout.Children.Add(submitButton);
+            backOfCard.SetBinding(Image.SourceProperty, "DisplayBackImage");
+            imageHolder.Content = backOfCard;
+            Button backPhotoButton = new Button()
+            {
+                Text = "Take Photo",
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                Command = _viewModel.TakeBackCardPhoto
+            };
+            backPhotoLayout.Children.Add(backPhotoButton, 0, 0);
+            backPhotoLayout.Children.Add(imageHolder, 1, 0);
+            Grid.SetColumnSpan(imageHolder, 2);
 
-            return layout;
+
+            return (backPhotoLayout);
         }
     }
 }

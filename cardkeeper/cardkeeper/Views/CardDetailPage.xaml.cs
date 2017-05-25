@@ -118,8 +118,6 @@ namespace cardkeeper.Views
             pageLayout.Children.Add(removeButton, 4,7);
             Grid.SetColumnSpan(removeButton, 2);
 
-
-
             return pageLayout;
 
         }
@@ -144,7 +142,10 @@ namespace cardkeeper.Views
                 else
                 {
                     detailCard.FadeTo(0, 250);
-                    detailCard.Source = Converter.ByteToImage(_viewModel.Card.QRCode);
+                    if(_viewModel.Card.Type == "Other")
+                        detailCard.Source = Converter.ByteToImage(_viewModel.Card.BackImage);
+                    else
+                        detailCard.Source = Converter.ByteToImage(_viewModel.Card.QRCode);
                     detailCard.FadeTo(1, 250);
                 }
             };
@@ -171,7 +172,10 @@ namespace cardkeeper.Views
                 }
                 else
                 {
-                    frame.Padding = new Thickness(90, 40);
+                    if (_viewModel.Card.Type == "Other")
+                        frame.Padding = -10;
+                    else
+                        frame.Padding = new Thickness(90, 40);
                 }
             };
             detailCard.GestureRecognizers.Add(tapGestureOnFrame);
