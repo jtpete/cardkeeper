@@ -9,18 +9,38 @@ using Xamarin.Forms;
 using cardkeeper.Helpers;
 using System.Diagnostics;
 using cardkeeper.Views;
+using System.ComponentModel;
 
 namespace cardkeeper.ViewModels
 {
-    class CardDetailViewModel : ContentPage
+    class CardDetailViewModel : ContentPage, INotifyPropertyChanged
     {
+        private Card card;
         public Card Card
         {
-            get { return (Card)GetValue(CardProperty); }
-            set { SetValue(CardProperty, value); }
+            get { return card; }
+            set
+            {
+                if (card != value)
+                {
+                    card = value;
+                    OnPropertyChanged("Card");
+                }
+            }
         }
-        public static readonly BindableProperty CardProperty = BindableProperty.Create<CardDetailViewModel, Card>(c => c.Card, new Card());
-
+        private string displayThisBalance;
+        public string DisplayThisBalance
+        {
+            get { return displayThisBalance; }
+            set
+            {
+                if (displayThisBalance != value)
+                {
+                    displayThisBalance = value;
+                    OnPropertyChanged("DisplayThisBalance");
+                }
+            }
+        }
 
         public ICommand RemoveButtonCommand { get; set; }
         public ICommand ApplyPurchaseButtonCommand { get; set; }
@@ -30,6 +50,7 @@ namespace cardkeeper.ViewModels
         public CardDetailViewModel(Card card)
         {
             Card = card;
+            displayThisBalance = card.DisplayBalance;
             RemoveButtonCommand = new Command(RemoveThisCard);
             ApplyPurchaseButtonCommand = new Command(ApplyPurchase);
             LoadCardCommand = new Command(LoadCard);
@@ -60,8 +81,18 @@ namespace cardkeeper.ViewModels
             if (Card.AccountNumber != null)
             {
                 card = Database.GetCard(Card.AccountNumber);
-                Card.Balance = card.Balance;
+                Card = null;
+                Card = card;
+                DisplayThisBalance = card.DisplayBalance;
             }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged == null)
+                return;
+
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

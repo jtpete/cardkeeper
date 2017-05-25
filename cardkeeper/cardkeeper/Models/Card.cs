@@ -61,20 +61,30 @@ namespace cardkeeper.Models
             get { return balance; }
             set
             {
-                balance = value;
+                balance = Math.Round(value, 2);
                 OnPropertyChanged("Balance");
+                DisplayBalance = balance.ToString();
             }
         }
+        private string displayBalance;
+        [Ignore]
         public string DisplayBalance
         {
             get
             {
                 if (Type == "Gift")
-                    return "$" + balance.ToString("0.00");
+                    return "$" + displayBalance;
                 else
                     return "";
             }
-            set { }
+            set
+            {
+                if (displayBalance != value)
+                {
+                    displayBalance = value;
+                    OnPropertyChanged("DisplayBalance");
+                }
+            }
         }
         private string type;
         public string Type

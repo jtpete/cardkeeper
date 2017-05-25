@@ -77,8 +77,7 @@ namespace cardkeeper.Views
             {
                 Aspect = Aspect.AspectFill
             };
-            frontOfCard.Source = _viewModel.FrontImage;
-            frontOfCard.SetBinding(Entry.TextProperty, new Binding(path: "FrontImage", source: _viewModel.FrontImage));
+            frontOfCard.SetBinding(Image.SourceProperty, "DisplayFrontImage");
             imageHolder.Content = frontOfCard;
             Button frontPhotoButton = new Button()
             {
@@ -88,7 +87,7 @@ namespace cardkeeper.Views
                 Command = _viewModel.TakeFrontCardPhoto
             };
             frontPhotoLayout.Children.Add(frontPhotoButton,0,0);
-            frontPhotoLayout.Children.Add(imageHolder,1,0);
+            frontPhotoLayout.Children.Add(imageHolder, 1,0);
             Grid.SetColumnSpan(imageHolder, 2);
 
             Label takePhoto = new Label()

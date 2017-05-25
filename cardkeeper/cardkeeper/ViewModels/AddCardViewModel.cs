@@ -16,7 +16,7 @@ using Plugin.Media;
 namespace cardkeeper.ViewModels
 {
 
-    public class AddCardViewModel : ContentPage
+    public class AddCardViewModel : ContentPage, INotifyPropertyChanged
     {
         private string balance;
         public string Balance
@@ -31,16 +31,22 @@ namespace cardkeeper.ViewModels
         private string cardType;
         public string CardType { get { return cardType; } set { cardType = value; } }
         private byte[] frontImage;
-        public ImageSource FrontImage
+        private ImageSource displayFrontImage;
+        public ImageSource DisplayFrontImage
         {
             get
             {
-                if (frontImage != null)
-                    return Converter.ByteToImage(frontImage);
+                if (displayFrontImage != null)
+                    return displayFrontImage;
                 else
                     return null;
             }
-            set { }
+            set
+            {
+                if(displayFrontImage != value)
+                    displayFrontImage = value;
+                OnPropertyChanged("DisplayFrontImage");
+            }
         }
         public Card Card
         {
@@ -59,6 +65,8 @@ namespace cardkeeper.ViewModels
         {
             Card = new Card();
             this.cardType = cardType;
+            Card.Type = cardType;
+            DisplayFrontImage = Card.DisplayFrontImage;
             SubmitButtonCommand = new Command(ValidateCard);
             TakeFrontCardPhoto = new Command(TakeFrontPhoto);
         }
@@ -77,7 +85,7 @@ namespace cardkeeper.ViewModels
                                 Card.FrontImage = frontImage;
                             Card.Type = cardType;
                             Card.Balance = Converter.ConvertStringToDouble(balance);
-                            doNotAddCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}\nBalance: ${Card.Balance.ToString("0.00")}", "No", "Yes");
+                            doNotAddCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}\nBalance: {Card.DisplayBalance}", "No", "Yes");
                         }
                         break;
                     }
@@ -148,10 +156,12 @@ namespace cardkeeper.ViewModels
                 if (file == null)
                     return;
                 frontImage = System.IO.File.ReadAllBytes(file.Path);
+                DisplayFrontImage = Converter.ByteToImage(frontImage);
                 File.Delete(file.Path);
                 file.Dispose();
             }
 
         }
+
     }
 }

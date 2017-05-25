@@ -20,9 +20,9 @@ namespace cardkeeper.Views
 		{
 			InitializeComponent ();
             _viewModel = new CardDetailViewModel(card);
+            BindingContext = _viewModel;
             Content = LayoutCardDetailPage();
             _viewModel.Navigation = Navigation;
-            BindingContext = _viewModel;
         }
         public View LayoutCardDetailPage()
         {
@@ -69,10 +69,11 @@ namespace cardkeeper.Views
             };
             var balance = new Label
             {
-                Text = _viewModel.Card.DisplayBalance,
                 FontSize = 30,
                 TextColor = Color.White,
             };
+            balance.SetBinding(Label.TextProperty, "DisplayThisBalance");
+
             if (_viewModel.Card.Type != "Gift")
             {
                 applyPurchase.IsVisible = false;
