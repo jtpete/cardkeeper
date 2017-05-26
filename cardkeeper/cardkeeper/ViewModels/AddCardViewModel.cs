@@ -155,25 +155,16 @@ namespace cardkeeper.ViewModels
         public async void AddCardToDatabaseAsync()
         {
 
-            Card.QRCode = await API.GetQRCode(API.GetGoogleQRCodeService(Card.AccountNumber));
-            if (Card.QRCode != null)
+            Card.ScanCode = await API.GetScanCode(API.GetBarCodeService(Card.AccountNumber));
+            if (Card.ScanCode != null)
             {
                 Database.AddCard(Card);
                 await Navigation.PopAsync();
             }
             else
             {
-                Card.QRCode = await API.GetQRCode(API.GetOtherQRCodeService(Card.AccountNumber));
-                if (Card.QRCode != null)
-                {
-                    Database.AddCard(Card);
-                    await Navigation.PopAsync();
-                }
-                else
-                {
-                    await DisplayAlert("Error With Card.", "It seems we had an error adding this card.  Please try back later.", "Ok");
-                    await Navigation.PopToRootAsync();
-                }
+                await DisplayAlert("Error With Card.", "It seems we had an error adding this card.  Please try back later.", "Ok");
+                await Navigation.PopToRootAsync();
             }
         }
         public async void TakeFrontPhoto()

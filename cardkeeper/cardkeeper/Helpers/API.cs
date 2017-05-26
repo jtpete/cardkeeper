@@ -12,15 +12,15 @@ namespace cardkeeper.Helpers
 {
     public static class API
     {
-        public static async Task<byte[]> GetQRCode(string url)
+        public static async Task<byte[]> GetScanCode(string url)
         {
             try
             {
                 WebRequest request = WebRequest.Create(url);
                 WebResponse response = await request.GetResponseAsync();
                 BinaryReader reader = new BinaryReader(response.GetResponseStream());
-                byte[] qrCode = reader.ReadBytes(22500);
-                return qrCode;
+                byte[] scanCode = reader.ReadBytes(22500);
+                return scanCode;
             }
             catch(Exception ex)
             {
@@ -36,6 +36,10 @@ namespace cardkeeper.Helpers
         {
             return $"http://api.qrserver.com/v1/create-qr-code/?data={accountNumber}&size=150x150";
 
+        }
+        public static string GetBarCodeService(string accountNumber)
+        {
+            return $"http://www.barcodes4.me/barcode/c128a/{accountNumber}.png";
         }
         public static string GetWeatherService(string accountNumber)
         {

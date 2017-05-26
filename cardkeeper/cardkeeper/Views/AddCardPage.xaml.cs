@@ -40,7 +40,7 @@ namespace cardkeeper.Views
             };
             var accountEntry = new Entry
             {
-                Keyboard = Keyboard.Numeric,
+                Keyboard = Keyboard.Default,
                 HorizontalOptions = LayoutOptions.FillAndExpand
             };
             accountEntry.SetBinding(Entry.TextProperty, new Binding(path: "AccountNumber", source: _viewModel.Card));

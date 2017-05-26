@@ -70,7 +70,7 @@ namespace cardkeeper.Models
 
             }
         }
-        public byte[] QRCode { get; set; }
+        public byte[] ScanCode { get; set; }
         private double balance;
         public double Balance
         {

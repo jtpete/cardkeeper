@@ -58,7 +58,7 @@ namespace cardkeeper.Views
             var accountNumber = new Label
             {
                 Text = $"{_viewModel.Card.AccountNumber}",
-                FontSize = 30,
+                FontSize = 25,
                 TextColor = Color.White,
             };
             accountRow.Children.Add(accountLabel);
@@ -164,7 +164,7 @@ namespace cardkeeper.Views
                     if(_viewModel.Card.Type == "Other")
                         detailCard.Source = Converter.ByteToImage(_viewModel.Card.BackImage);
                     else
-                        detailCard.Source = Converter.ByteToImage(_viewModel.Card.QRCode);
+                        detailCard.Source = Converter.ByteToImage(_viewModel.Card.ScanCode);
                     detailCard.FadeTo(1, 250);
                 }
             };
@@ -194,7 +194,7 @@ namespace cardkeeper.Views
                     if (_viewModel.Card.Type == "Other")
                         frame.Padding = -10;
                     else
-                        frame.Padding = new Thickness(90, 40);
+                        frame.Padding = new Thickness(40, 50);
                 }
             };
             detailCard.GestureRecognizers.Add(tapGestureOnFrame);
