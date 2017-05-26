@@ -161,10 +161,14 @@ namespace cardkeeper.Views
                 else
                 {
                     detailCard.FadeTo(0, 250);
-                    if(_viewModel.Card.Type == "Other")
+                    if (_viewModel.Card.Type == "Other")
                         detailCard.Source = Converter.ByteToImage(_viewModel.Card.BackImage);
+                     
                     else
+                    {
                         detailCard.Source = Converter.ByteToImage(_viewModel.Card.ScanCode);
+                    }
+
                     detailCard.FadeTo(1, 250);
                 }
             };
@@ -194,7 +198,9 @@ namespace cardkeeper.Views
                     if (_viewModel.Card.Type == "Other")
                         frame.Padding = -10;
                     else
+                    {
                         frame.Padding = new Thickness(40, 50);
+                    }
                 }
             };
             detailCard.GestureRecognizers.Add(tapGestureOnFrame);
