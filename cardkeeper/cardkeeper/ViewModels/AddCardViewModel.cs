@@ -12,6 +12,11 @@ using SQLite;
 using System.Reflection;
 using System.Collections.Generic;
 using Plugin.Media;
+using ZXing.Mobile;
+using ZXing.Net.Mobile.Forms;
+using Android.Graphics;
+using System.Text;
+using Java.Nio;
 
 namespace cardkeeper.ViewModels
 {
@@ -77,6 +82,7 @@ namespace cardkeeper.ViewModels
         public ICommand SubmitButtonCommand { get; set; }
         public ICommand TakeFrontCardPhoto { get; set; }
         public ICommand TakeBackCardPhoto { get; set; }
+        public ICommand ScanBarCode { get; set; }
 
 
         public INavigation Navigation { get; set; }
@@ -91,6 +97,8 @@ namespace cardkeeper.ViewModels
             SubmitButtonCommand = new Command(ValidateCard);
             TakeFrontCardPhoto = new Command(TakeFrontPhoto);
             TakeBackCardPhoto = new Command(TakeBackPhoto);
+            ScanBarCode = new Command(ScanTheBarCode);
+
 
         }
         public async void ValidateCard()
@@ -155,7 +163,7 @@ namespace cardkeeper.ViewModels
         public async void AddCardToDatabaseAsync()
         {
 
-            Card.ScanCode = await API.GetScanCode(API.GetBarCodeService(Card.AccountNumber));
+//            Card.ScanCode = await API.GetScanCode(API.GetBarCodeService(Card.ScanCodeNumber, CardScanCodeType));
             if (Card.ScanCode != null)
             {
                 Database.AddCard(Card);
@@ -216,6 +224,63 @@ namespace cardkeeper.ViewModels
             }
 
         }
+        public async void ScanTheBarCode()
+        {
+            var scanPage = new ZXingScannerPage();
+            // Navigate to our scanner page
+            await Navigation.PushAsync(scanPage);
+            
+
+
+            scanPage.OnScanResult += (result) =>
+            {                
+                // Stop scanning
+                scanPage.IsScanning = false;
+
+                // Pop the page and show the result
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Navigation.PopAsync();
+                    await DisplayAlert("Scanned Barcode", result.Text, "OK");
+                    Card.ScanCodeNumber = result.Text;
+                    GenerateBarCodeFormated(result);
+                });
+
+            };
+
+
+        }
+        private void GenerateBarCodeFormated(ZXing.Result scanResult)
+        {
+            var barcode = new BarcodeWriter();
+
+            barcode.Format = scanResult.BarcodeFormat;
+            barcode.Options.Height = 50;
+            barcode.Options.Width = 125;
+
+            var result = barcode.Write(scanResult.Text);
+            Card.ScanCode = ImageToByte(result);
+            
+        }
+        public static byte[] ImageToByte(Bitmap img)
+        {
+            var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            var filePath = System.IO.Path.Combine(sdCardPath, "test.png");
+            var stream = new FileStream(filePath, FileMode.Create);
+            img.Compress(Bitmap.CompressFormat.Png, 100, stream);
+            stream.Close();
+            byte[] file = System.IO.File.ReadAllBytes(filePath);
+            File.Delete(filePath);
+            if (file == null)
+                return null;
+            else
+            {
+                return file;
+            }
+             
+
+        }
+
 
     }
 }

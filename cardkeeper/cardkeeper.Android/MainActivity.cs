@@ -5,6 +5,7 @@ using cardkeeper.ViewModels;
 using Java.IO;
 using Plugin.Permissions;
 using Xamarin.Forms;
+using ZXing.Net.Mobile.Forms;
 
 namespace cardkeeper.Droid
 {
@@ -22,15 +23,17 @@ namespace cardkeeper.Droid
             base.OnCreate(bundle);
            
             global::Xamarin.Forms.Forms.Init(this, bundle);
-          
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
-                LoadApplication(new App());
+
+            LoadApplication(new App());
 
            
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

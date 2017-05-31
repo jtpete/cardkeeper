@@ -71,6 +71,7 @@ namespace cardkeeper.Models
             }
         }
         public byte[] ScanCode { get; set; }
+        public string ScanCodeNumber { get; set; }
         private double balance;
         public double Balance
         {

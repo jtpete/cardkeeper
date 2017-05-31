@@ -2598,6 +2598,7 @@ containing a value of this type.
         public static int clip_horizontal=0x7f070033;
         public static int clip_vertical=0x7f070034;
         public static int collapseActionView=0x7f07001f;
+        public static int contentFrame=0x7f07009a;
         public static int contentPanel=0x7f07004a;
         public static int custom=0x7f070050;
         public static int customPanel=0x7f07004f;
@@ -2797,6 +2798,8 @@ containing a value of this type.
         public static int support_simple_spinner_dropdown_item=0x7f030036;
         public static int tabbar=0x7f030037;
         public static int toolbar=0x7f030038;
+        public static int zxingscanneractivitylayout=0x7f030039;
+        public static int zxingscannerfragmentlayout=0x7f03003a;
     }
     public static final class string {
         public static int abc_action_bar_home_description=0x7f08000f;
@@ -2821,6 +2824,7 @@ containing a value of this type.
         public static int appbar_scrolling_view_behavior=0x7f080023;
         public static int bottom_sheet_behavior=0x7f080024;
         public static int character_counter_pattern=0x7f080025;
+        public static int library_name=0x7f080026;
         public static int mr_button_content_description=0x7f080000;
         public static int mr_chooser_searching=0x7f080001;
         public static int mr_chooser_title=0x7f080002;

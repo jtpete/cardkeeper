@@ -39,6 +39,7 @@ namespace cardkeeper.Helpers
         }
         public static string GetBarCodeService(string accountNumber)
         {
+            
             return $"http://www.barcodes4.me/barcode/c128a/{accountNumber}.png";
         }
         public static string GetWeatherService(string accountNumber)

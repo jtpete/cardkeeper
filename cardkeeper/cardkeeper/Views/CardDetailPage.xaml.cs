@@ -147,7 +147,8 @@ namespace cardkeeper.Views
             {
                 Source = _viewModel.Card.DisplayFrontImage,
                 Aspect = Aspect.Fill,
-            };
+
+        };
             var tapGestureOnImage = new TapGestureRecognizer();
             tapGestureOnImage.Tapped += (s, e) =>
             {
@@ -192,15 +193,24 @@ namespace cardkeeper.Views
                 if (cardTaps % 2 == 0)
                 {
                     frame.Padding = -10;
+                    detailCard.Aspect = Aspect.Fill;
+
                 }
                 else
                 {
                     if (_viewModel.Card.Type == "Other")
+                    {
                         frame.Padding = -10;
+                        detailCard.Aspect = Aspect.Fill;
+                    }
                     else
                     {
-                        frame.Padding = new Thickness(40, 50);
+                        detailCard.HeightRequest = 50;
+                        detailCard.WidthRequest = 125;
+                        detailCard.Aspect = Aspect.AspectFit;
+                        frame.Padding = new Thickness(10, 0);
                     }
+
                 }
             };
             detailCard.GestureRecognizers.Add(tapGestureOnFrame);

@@ -47,6 +47,12 @@ namespace cardkeeper.Views
             accountRow.Children.Add(accountLabel);
             accountRow.Children.Add(accountEntry);
             layout.Children.Add(accountRow);
+            var accountScan = new Button
+            {
+                Text = "Scan Bar Code",
+                Command = _viewModel.ScanBarCode,
+            };
+            layout.Children.Add(accountScan);
 
 
             StackLayout labelRow = new StackLayout();
