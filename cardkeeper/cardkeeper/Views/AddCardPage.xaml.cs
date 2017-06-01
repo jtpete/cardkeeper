@@ -26,8 +26,37 @@ namespace cardkeeper.Views
         }
         public View LayoutAddCardPage()
         {
+            var submitItem = new ToolbarItem
+            {
+                Text = "Submit",
+                Command = _viewModel.SubmitButtonCommand,
+            };
+            this.ToolbarItems.Add(submitItem);
             var layout = new StackLayout();
 
+            if(_viewModel.CardType != "Other")
+            {
+               //Button Stack
+                StackLayout scanButtons = new StackLayout()
+                {
+                    Orientation = StackOrientation.Horizontal,
+                };
+                var accountScan = new Button
+                {
+                    Text = "Scan Code",
+                    Command = _viewModel.ScanBarCode,
+                    BackgroundColor = Color.FromHex("#cc9933"),
+                };
+                var noScan = new Button
+                {
+                    Text = "No Scan Code",
+                    Command = _viewModel.NoScanBarCode,
+                    BackgroundColor = Color.FromHex("#cc9933"),
+                };
+                scanButtons.Children.Add(accountScan);
+                scanButtons.Children.Add(noScan);
+                layout.Children.Add(scanButtons);
+            }
 
             // ACCOUNT NUMBER 
             StackLayout accountRow = new StackLayout();
@@ -47,13 +76,27 @@ namespace cardkeeper.Views
             accountRow.Children.Add(accountLabel);
             accountRow.Children.Add(accountEntry);
             layout.Children.Add(accountRow);
-            var accountScan = new Button
-            {
-                Text = "Scan Bar Code",
-                Command = _viewModel.ScanBarCode,
-            };
-            layout.Children.Add(accountScan);
 
+            if(_viewModel.CardType == "Gift")
+            {
+                // PIN 
+                StackLayout pinRow = new StackLayout();
+                pinRow.Orientation = StackOrientation.Horizontal;
+                var pinLabel = new Label
+                {
+                    Text = "PIN:",
+                    HorizontalOptions = LayoutOptions.Start
+                };
+                var pinEntry = new Entry
+                {
+                    Keyboard = Keyboard.Numeric,
+                    HorizontalOptions = LayoutOptions.FillAndExpand
+                };
+                pinEntry.SetBinding(Entry.TextProperty, new Binding(path: "Pin", source: _viewModel.Card));
+                pinRow.Children.Add(pinLabel);
+                pinRow.Children.Add(pinEntry);
+                layout.Children.Add(pinRow);
+            }
 
             StackLayout labelRow = new StackLayout();
             labelRow.Orientation = StackOrientation.Horizontal;
@@ -114,15 +157,22 @@ namespace cardkeeper.Views
                 layout.Children.Add(takeBackPhoto);
                 layout.Children.Add(backPhotoLayout);
             }
-
-            var submitButton = new Button
+            else
             {
-                Text = "Sumbit",
-                Command = _viewModel.SubmitButtonCommand
+                Label scanCodeLabel = new Label()
+                {
+                    Text = "Scan Code:"
+                };
+                View backPhotoLayout = LayoutBackPhotoView();
+                layout.Children.Add(scanCodeLabel);
+                layout.Children.Add(backPhotoLayout);
+            }
+            ScrollView scrollView = new ScrollView()
+            {
+                Content = layout,
             };
-            layout.Children.Add(submitButton);
 
-            return layout;
+            return scrollView;
         }
         public View LayoutFrontPhotoView()
         {
@@ -151,7 +201,9 @@ namespace cardkeeper.Views
                 Text = "Take Photo",
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
-                Command = _viewModel.TakeFrontCardPhoto
+                Command = _viewModel.TakeFrontCardPhoto,
+                BackgroundColor = Color.FromHex("#cc9933"),
+
             };
             frontPhotoLayout.Children.Add(frontPhotoButton, 0, 0);
             frontPhotoLayout.Children.Add(imageHolder, 1, 0);
@@ -176,22 +228,38 @@ namespace cardkeeper.Views
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
             };
-            Image backOfCard = new Image()
+            if(_viewModel.CardType == "Other")
             {
-                Aspect = Aspect.AspectFill
-            };
-            backOfCard.SetBinding(Image.SourceProperty, "DisplayBackImage");
-            imageHolder.Content = backOfCard;
-            Button backPhotoButton = new Button()
+                Image backOfCard = new Image()
+                {
+                    Aspect = Aspect.AspectFill
+                };
+                backOfCard.SetBinding(Image.SourceProperty, "DisplayBackImage");
+                imageHolder.Content = backOfCard;
+                Button backPhotoButton = new Button()
+                {
+                    Text = "Take Photo",
+                    HorizontalOptions = LayoutOptions.CenterAndExpand,
+                    VerticalOptions = LayoutOptions.CenterAndExpand,
+                    Command = _viewModel.TakeBackCardPhoto,
+                    BackgroundColor = Color.FromHex("#cc9933"),
+                };
+                backPhotoLayout.Children.Add(backPhotoButton, 0, 0);
+                backPhotoLayout.Children.Add(imageHolder, 1, 0);
+                Grid.SetColumnSpan(imageHolder, 2);
+            }
+            else
             {
-                Text = "Take Photo",
-                HorizontalOptions = LayoutOptions.CenterAndExpand,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
-                Command = _viewModel.TakeBackCardPhoto
-            };
-            backPhotoLayout.Children.Add(backPhotoButton, 0, 0);
-            backPhotoLayout.Children.Add(imageHolder, 1, 0);
-            Grid.SetColumnSpan(imageHolder, 2);
+                Image backOfCard = new Image()
+                {
+                    Aspect = Aspect.AspectFit
+                };
+                backOfCard.SetBinding(Image.SourceProperty, "DisplayScanCode");
+                imageHolder.Padding = 10;
+                imageHolder.Content = backOfCard;
+                backPhotoLayout.Children.Add(imageHolder, 1, 0);
+                Grid.SetColumnSpan(imageHolder, 2);
+            }
 
 
             return (backPhotoLayout);

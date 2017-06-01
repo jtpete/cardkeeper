@@ -24,6 +24,16 @@ namespace cardkeeper.Models
                 OnPropertyChanged("AccountNumber");
             }
         }
+        private string pin;
+        public string Pin
+        {
+            get { return pin; }
+            set
+            {
+                pin = value;
+                OnPropertyChanged("Pin");
+            }
+        }
         private byte[] frontImage;
         
         public byte[] FrontImage { get {return frontImage;} set{frontImage = value;} }
@@ -72,6 +82,17 @@ namespace cardkeeper.Models
         }
         public byte[] ScanCode { get; set; }
         public string ScanCodeNumber { get; set; }
+        public string ScanCodeType { get; set; }
+        public bool IsQRCode
+        {
+            get
+            {
+                if (ScanCodeType == "QR_CODE")
+                    return true;
+                else
+                    return false;
+            }
+        }
         private double balance;
         public double Balance
         {

@@ -45,6 +45,7 @@ namespace cardkeeper.ViewModels
         public ICommand RemoveButtonCommand { get; set; }
         public ICommand ApplyPurchaseButtonCommand { get; set; }
         public ICommand LoadCardCommand { get; set; }
+        public ICommand SeePinCommand { get; set; }
         public INavigation Navigation { get; set; }
 
         public CardDetailViewModel(Card card)
@@ -54,11 +55,17 @@ namespace cardkeeper.ViewModels
             RemoveButtonCommand = new Command(RemoveThisCard);
             ApplyPurchaseButtonCommand = new Command(ApplyPurchase);
             LoadCardCommand = new Command(LoadCard);
+            SeePinCommand = new Command(ShowPinNumber);
+
+        }
+        public async void ShowPinNumber()
+        {
+            await DisplayAlert("Pin Number:", Card.Pin, "Ok");
         }
         public async void RemoveThisCard()
         {
-            var action = await DisplayAlert("Are you sure you want to remove this card?", $"\nAccount Number: {Card.AccountNumber}\nBalance: ${Card.Balance.ToString("0.00")}", "No", "Yes");
-            if (!action)
+            var action = await DisplayAlert("Are you sure you want to remove this card?", $"\nAccount Number: {Card.AccountNumber}", "Yes", "No");
+            if (action)
             {
                 try
                 {

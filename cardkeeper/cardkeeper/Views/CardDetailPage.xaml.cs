@@ -26,6 +26,7 @@ namespace cardkeeper.Views
         }
         public View LayoutCardDetailPage()
         {
+
             Grid pageLayout = new Grid()
             {
                 BackgroundColor = Color.FromHex("#2a2a2a"),
@@ -52,14 +53,14 @@ namespace cardkeeper.Views
             {
                 Text = "Account:",
                 FontSize = 12,
-                TextColor = Color.White,
+                TextColor = Color.FromHex("#cc9933"),
                 Margin = new Thickness(0, 0, 0, -15)
             };
             var accountNumber = new Label
             {
                 Text = $"{_viewModel.Card.AccountNumber}",
                 FontSize = 25,
-                TextColor = Color.White,
+                TextColor = Color.FromHex("#cc9933"),
             };
             accountRow.Children.Add(accountLabel);
             accountRow.Children.Add(accountNumber);
@@ -74,7 +75,7 @@ namespace cardkeeper.Views
                 {
                     Text = $"{_viewModel.Card.Label}",
                     FontSize = 25,
-                    TextColor = Color.White,
+                    TextColor = Color.FromHex("#cc9933"),
                 };
                 labelRow.Children.Add(labelValue);
                 pageLayout.Children.Add(labelRow, 0, 6);
@@ -86,26 +87,22 @@ namespace cardkeeper.Views
             {
                 Text = "Apply Purchase",
                 Command = _viewModel.ApplyPurchaseButtonCommand,
+                BackgroundColor = Color.FromHex("#cc9933"),
+                BorderColor = Color.FromHex("#d8d8d8"),
             };
             var balance = new Label
             {
                 FontSize = 30,
-                TextColor = Color.White,
+                TextColor = Color.FromHex("#cc9933"),
             };
             balance.SetBinding(Label.TextProperty, "DisplayThisBalance");
-
-            if (_viewModel.Card.Type != "Gift")
-            {
-                applyPurchase.IsVisible = false;
-                balance.IsVisible = false;
-            }
 
             // Other Elements
             var flipLabel = new Label()
             {
                 Text = "Tap card to flip.",
                 FontSize = 12,
-                TextColor = Color.White,
+                TextColor = Color.FromHex("#cc9933"),
                 Margin = new Thickness(0, 0, 0, -15),
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End,
@@ -115,7 +112,24 @@ namespace cardkeeper.Views
                 Text = "Remove",
                 Command = _viewModel.RemoveButtonCommand,
                 HorizontalOptions = LayoutOptions.End,
+                BackgroundColor = Color.FromHex("#cc9933"),
+                BorderColor = Color.FromHex("#d8d8d8"),
             };
+
+            var pinButton = new Button
+            {
+                Text = "See PIN",
+                Command = _viewModel.SeePinCommand,
+                HorizontalOptions = LayoutOptions.Start,
+                BackgroundColor = Color.FromHex("#cc9933"),
+                BorderColor = Color.FromHex("#d8d8d8"),
+            };
+            if (_viewModel.Card.Type != "Gift")
+            {
+                applyPurchase.IsVisible = false;
+                balance.IsVisible = false;
+                pinButton.IsVisible = false;
+            }
             pageLayout.Children.Add(balance, 0,0);
             pageLayout.Children.Add(applyPurchase, 3, 0);
             Grid.SetColumnSpan(balance, 5);
@@ -136,6 +150,8 @@ namespace cardkeeper.Views
 
             pageLayout.Children.Add(removeButton, 4,7);
             Grid.SetColumnSpan(removeButton, 2);
+            pageLayout.Children.Add(pinButton, 0, 7);
+            Grid.SetColumnSpan(pinButton, 2);
 
             return pageLayout;
 
@@ -205,10 +221,18 @@ namespace cardkeeper.Views
                     }
                     else
                     {
-                        detailCard.HeightRequest = 50;
-                        detailCard.WidthRequest = 125;
+                        if (_viewModel.Card.IsQRCode)
+                        {
+                            detailCard.HeightRequest = 75;
+                            detailCard.WidthRequest = 75;
+                        }
+                        else
+                        {
+                            detailCard.HeightRequest = 50;
+                            detailCard.WidthRequest = 125;
+                            frame.Padding = new Thickness(10, 0);
+                        }
                         detailCard.Aspect = Aspect.AspectFit;
-                        frame.Padding = new Thickness(10, 0);
                     }
 
                 }

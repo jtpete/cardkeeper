@@ -71,6 +71,23 @@ namespace cardkeeper.ViewModels
                 OnPropertyChanged("DisplayBackImage");
             }
         }
+        private ImageSource displayScanCode;
+        public ImageSource DisplayScanCode
+        {
+            get
+            {
+                if (displayScanCode != null)
+                    return displayScanCode;
+                else
+                    return null;
+            }
+            set
+            {
+                if (displayScanCode != value)
+                    displayScanCode = value;
+                OnPropertyChanged("DisplayScanCode");
+            }
+        }
         public Card Card
         {
             get { return (Card)GetValue(CardProperty); }
@@ -83,7 +100,7 @@ namespace cardkeeper.ViewModels
         public ICommand TakeFrontCardPhoto { get; set; }
         public ICommand TakeBackCardPhoto { get; set; }
         public ICommand ScanBarCode { get; set; }
-
+        public ICommand NoScanBarCode { get; set; }
 
         public INavigation Navigation { get; set; }
 
@@ -98,6 +115,7 @@ namespace cardkeeper.ViewModels
             TakeFrontCardPhoto = new Command(TakeFrontPhoto);
             TakeBackCardPhoto = new Command(TakeBackPhoto);
             ScanBarCode = new Command(ScanTheBarCode);
+            NoScanBarCode = new Command(NoScanCodeOnCard);
 
 
         }
@@ -162,8 +180,12 @@ namespace cardkeeper.ViewModels
 
         public async void AddCardToDatabaseAsync()
         {
-
-//            Card.ScanCode = await API.GetScanCode(API.GetBarCodeService(Card.ScanCodeNumber, CardScanCodeType));
+            if(Card.ScanCode == null && Card.AccountNumber != null)
+            {
+                Card.ScanCode = await API.GetScanCode(API.GetBarCodeService(Card.AccountNumber));
+                Card.ScanCodeNumber = Card.AccountNumber;
+                Card.ScanCodeType = "CODE_128";
+            }
             if (Card.ScanCode != null)
             {
                 Database.AddCard(Card);
@@ -222,7 +244,10 @@ namespace cardkeeper.ViewModels
                 File.Delete(file.Path);
                 file.Dispose();
             }
-
+        }
+        public async void NoScanCodeOnCard()
+        {
+            await DisplayAlert("Please type in account number on card", null, "OK");
         }
         public async void ScanTheBarCode()
         {
@@ -241,8 +266,18 @@ namespace cardkeeper.ViewModels
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Navigation.PopAsync();
-                    await DisplayAlert("Scanned Barcode", result.Text, "OK");
+                    var action = await DisplayAlert("Is this the account number on your card?", result.Text, "Yes", "No");
+                    if (action)
+                    {
+                        Card.AccountNumber = result.Text;
+                    }
+                    else
+                    {
+                        await DisplayAlert("Please type in account number", null, "OK");
+                    }
                     Card.ScanCodeNumber = result.Text;
+                    Card.ScanCodeType = result.BarcodeFormat.ToString();
+                    
                     GenerateBarCodeFormated(result);
                 });
 
@@ -255,12 +290,20 @@ namespace cardkeeper.ViewModels
             var barcode = new BarcodeWriter();
 
             barcode.Format = scanResult.BarcodeFormat;
-            barcode.Options.Height = 50;
-            barcode.Options.Width = 125;
-
+            Card.ScanCodeType = barcode.Format.ToString();
+            if(Card.IsQRCode)
+            {
+                barcode.Options.Height = 75;
+                barcode.Options.Width = 75;
+            }
+            else
+            {
+                barcode.Options.Height = 50;
+                barcode.Options.Width = 125;
+            }
             var result = barcode.Write(scanResult.Text);
             Card.ScanCode = ImageToByte(result);
-            
+            DisplayScanCode = Converter.ByteToImage(Card.ScanCode);
         }
         public static byte[] ImageToByte(Bitmap img)
         {
@@ -277,10 +320,6 @@ namespace cardkeeper.ViewModels
             {
                 return file;
             }
-             
-
         }
-
-
     }
 }
