@@ -18,12 +18,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\API.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Database.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Email.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Card.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AddCardViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CardDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CardsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\AddCardPage.xaml.cs">
       <DependentUpon>AddCardPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -84,6 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FrontPhotoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

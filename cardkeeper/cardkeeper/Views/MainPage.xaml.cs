@@ -19,6 +19,13 @@ namespace cardkeeper.Views
         }
         public View LayoutMainPage()
         {
+            var submitItem = new ToolbarItem
+            {
+                Text = "About",
+                Command = _viewModel.AboutCommand,
+            };
+            this.ToolbarItems.Add(submitItem);
+
             var layout = new StackLayout()
             {
                 BackgroundColor = Color.FromHex("#2a2a2a"),
@@ -146,10 +153,6 @@ namespace cardkeeper.Views
             layout.Children.Add(loyaltyCardFrame);
             layout.Children.Add(membershipCardFrame);
             layout.Children.Add(otherCardFrame);
-
-
-
-
 
             return layout;
         }

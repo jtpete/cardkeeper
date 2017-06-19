@@ -16,6 +16,7 @@ namespace cardkeeper.ViewModels
         public ICommand LoyaltyCardsCommand { get; set; }
         public ICommand MembershipCardsCommand { get; set; }
         public ICommand OtherCardsCommand { get; set; }
+        public ICommand AboutCommand { get; set; }
 
         public INavigation Navigation { get; set; }
 
@@ -27,7 +28,7 @@ namespace cardkeeper.ViewModels
             LoyaltyCardsCommand = new Command(LoyaltyViewCardsPage);
             MembershipCardsCommand = new Command(MembershipViewCardsPage);
             OtherCardsCommand = new Command(OtherViewCardsPage);
-
+            AboutCommand = new Command(AboutViewPage);
         }
         public async void GiftViewCardsPage()
         {
@@ -48,6 +49,10 @@ namespace cardkeeper.ViewModels
         {
             string cardType = "Other";
             await Navigation.PushAsync(new CardsPage(cardType));
+        }
+        public async void AboutViewPage()
+        {
+            await Navigation.PushAsync(new AboutPage());
         }
 
     }

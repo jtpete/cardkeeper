@@ -96,3 +96,5 @@ C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\D
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\Xamarin.Forms.Platform.Android.dll.mdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\android\assets\Xamarin.Forms.Xaml.dll.mdb
 C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\res\drawable\logo.png
+C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Android.csprojResolveAssemblyReference.cache
+C:\Users\Jason\Documents\Capstone\cardkeeper\cardkeeper\cardkeeper.Android\obj\Debug\cardkeeper.Droid.Views.AboutPage.xaml.g.cs
