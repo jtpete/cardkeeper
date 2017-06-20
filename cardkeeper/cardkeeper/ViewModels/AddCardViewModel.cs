@@ -134,7 +134,15 @@ namespace cardkeeper.ViewModels
                                 Card.FrontImage = frontImage;
                             Card.Type = cardType;
                             Card.Balance = Converter.ConvertStringToDouble(balance);
-                            doNotAddCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}\nBalance: {Card.DisplayBalance}", "No", "Yes");
+                            if (IsDuplicateCard())
+                            {
+                                doNotAddCard = true;
+                                await DisplayAlert("Add Incomplete", "It looks like this card already exists in the Card Keeper.", "Ok");
+                            }
+                            else
+                            {
+                                doNotAddCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}\nBalance: {Card.DisplayBalance}", "No", "Yes");
+                            }
                         }
                         break;
                     }
@@ -150,7 +158,15 @@ namespace cardkeeper.ViewModels
                             if (frontImage != null)
                                 Card.FrontImage = frontImage;
                             Card.Type = cardType;
-                            doNotAddCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}", "No", "Yes");
+                            if (IsDuplicateCard())
+                            {
+                                doNotAddCard = true;
+                                await DisplayAlert("Add Incomplete", "It looks like this card already exists in the Card Keeper.", "Ok");
+                            }
+                            else
+                            {
+                                doNotAddCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}", "No", "Yes");
+                            }
                         }
                         break;
                     }
@@ -158,16 +174,29 @@ namespace cardkeeper.ViewModels
                     {
                         if (Card.AccountNumber == null || Card.AccountNumber == "")
                         {
-                            await DisplayAlert("Add Incomplete", "Please include values for each field.", "Ok");
+                            Random rand = new Random();
+                            Card.AccountNumber = rand.Next(1,2000000).ToString();
+                            if (IsDuplicateCard())
+                            {
+                                Card.AccountNumber = rand.Next(1, 2000000).ToString();
+                            }
                         }
                         else
+                        {
+                            if (IsDuplicateCard())
+                            {
+                                doNotAddCard = true;
+                                await DisplayAlert("Add Incomplete", "It looks like this card already exists in the Card Keeper.", "Ok");
+                            }
+                        }
+                        if (!doNotAddCard)
                         {
                             if (frontImage != null)
                                 Card.FrontImage = frontImage;
                             if (backImage != null)
                                 Card.BackImage = backImage;
                             Card.Type = cardType;
-                            doNotAddCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}\nAccount Number: {Card.AccountNumber}", "No", "Yes");
+                            doNotAddCard = await DisplayAlert("Please confirm:", $"\nCard Type: {Card.Type}", "No", "Yes");
                         }
                         break;
                     }
@@ -266,8 +295,8 @@ namespace cardkeeper.ViewModels
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Navigation.PopAsync();
-                    var action = await DisplayAlert("Is this the account number on your card?", result.Text, "Yes", "No");
-                    if (action)
+                    var answerNo = await DisplayAlert("Is this the account number on your card?", result.Text, "No", "Yes");
+                    if (!answerNo)
                     {
                         Card.AccountNumber = result.Text;
                     }
@@ -320,6 +349,21 @@ namespace cardkeeper.ViewModels
             {
                 return file;
             }
+        }
+        public bool IsDuplicateCard()
+        {
+            bool isDuplicate = false;
+
+            if (Database.GetCard(Card.AccountNumber) == null)
+            {
+                isDuplicate = false;
+            }
+            else
+            {
+                isDuplicate = true;
+            }
+
+            return isDuplicate; 
         }
     }
 }

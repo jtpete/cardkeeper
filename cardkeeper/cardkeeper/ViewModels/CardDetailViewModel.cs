@@ -64,8 +64,8 @@ namespace cardkeeper.ViewModels
         }
         public async void RemoveThisCard()
         {
-            var action = await DisplayAlert("Are you sure you want to remove this card?", $"\nAccount Number: {Card.AccountNumber}", "Yes", "No");
-            if (action)
+            var answerNo = await DisplayAlert("Are you sure you want to remove this card?", $"\nAccount Number: {Card.AccountNumber}", "No", "Yes");
+            if (!answerNo)
             {
                 try
                 {

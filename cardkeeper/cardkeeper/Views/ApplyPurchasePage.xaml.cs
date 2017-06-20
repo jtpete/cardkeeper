@@ -69,8 +69,8 @@ namespace cardkeeper.Views
                 newBalance -= purchaseAmount;
             else
                 newBalance = 0;
-            var action = await DisplayAlert("Please confirm:", $"\nPurchase Amount: {purchaseAmount.ToString("0.00")}\nNew Balance: ${newBalance.ToString("0.00")}", "No", "Yes");
-            if (!action)
+            var answerNo = await DisplayAlert("Please confirm:", $"\nPurchase Amount: {purchaseAmount.ToString("0.00")}\nNew Balance: ${newBalance.ToString("0.00")}", "No", "Yes");
+            if (!answerNo)
             {
                 Card.Balance = newBalance;
                 Database.UpdateCard(Card);
