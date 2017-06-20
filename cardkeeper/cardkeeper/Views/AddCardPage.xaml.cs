@@ -32,7 +32,10 @@ namespace cardkeeper.Views
                 Command = _viewModel.SubmitButtonCommand,
             };
             this.ToolbarItems.Add(submitItem);
-            var layout = new StackLayout();
+            var layout = new StackLayout()
+            {
+                Padding = 5,
+            };
 
             if(_viewModel.CardType != "Other")
             {
@@ -53,9 +56,27 @@ namespace cardkeeper.Views
                     Command = _viewModel.NoScanBarCode,
                     BackgroundColor = Color.FromHex("#cc9933"),
                 };
+                var helpButton = new Button
+                {
+                    Text = "Help",
+                    Command = _viewModel.HelpCard,
+                    BackgroundColor = Color.FromHex("#cc9933"),
+                };
                 scanButtons.Children.Add(accountScan);
                 scanButtons.Children.Add(noScan);
+                scanButtons.Children.Add(helpButton);
                 layout.Children.Add(scanButtons);
+            }
+            else
+            {
+                var helpButton = new Button
+                {
+                    Text = "Help",
+                    Command = _viewModel.HelpCard,
+                    BackgroundColor = Color.FromHex("#cc9933"),
+
+                };
+                layout.Children.Add(helpButton);
             }
 
             // ACCOUNT NUMBER 

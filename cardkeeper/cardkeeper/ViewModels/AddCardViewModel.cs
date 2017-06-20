@@ -100,6 +100,7 @@ namespace cardkeeper.ViewModels
         public ICommand TakeFrontCardPhoto { get; set; }
         public ICommand TakeBackCardPhoto { get; set; }
         public ICommand ScanBarCode { get; set; }
+        public ICommand HelpCard { get; set; }
         public ICommand NoScanBarCode { get; set; }
 
         public INavigation Navigation { get; set; }
@@ -116,7 +117,7 @@ namespace cardkeeper.ViewModels
             TakeBackCardPhoto = new Command(TakeBackPhoto);
             ScanBarCode = new Command(ScanTheBarCode);
             NoScanBarCode = new Command(NoScanCodeOnCard);
-
+            HelpCard = new Command(HelpWithCard);
 
         }
         public async void ValidateCard()
@@ -127,7 +128,10 @@ namespace cardkeeper.ViewModels
                 case "Gift":
                     {
                         if (balance == null || Card.AccountNumber == null || Card.AccountNumber == "")
+                        {
                             await DisplayAlert("Add Incomplete", "Please include values for each field.", "Ok");
+                            doNotAddCard = true;
+                        }
                         else
                         {
                             if (frontImage != null)
@@ -218,6 +222,7 @@ namespace cardkeeper.ViewModels
             if (Card.ScanCode != null)
             {
                 Database.AddCard(Card);
+                await DisplayAlert("Card Added", "Card Keeper works in most settings but not all.  Please keep your original card in a safe location just in case the retailer does not accept the use of barcodes or have the ability to scan barcodes.", "Ok");
                 await Navigation.PopAsync();
             }
             else
@@ -276,7 +281,17 @@ namespace cardkeeper.ViewModels
         }
         public async void NoScanCodeOnCard()
         {
-            await DisplayAlert("Please type in account number on card", null, "OK");
+            await DisplayAlert("Locate Account Number", "Find the account number on the card that you are adding and manually input that number into the account field below.", "OK");
+        }
+        public async void HelpWithCard()
+        {
+            if(Card.Type == "Gift")
+                await DisplayAlert("Input Fields", "Account Number - The account number for this card corresponds to the barcode on the back of the card.  Use the Scan Code button to get the Account Number from the card if a barcode is present, otherwise input the account number manually. \n\nPIN - Some cards require you to peal back a covering in order to see a PIN number for this card.  This number is typically used for online transactions.\n\nLabel - This field is used to describe your card.\n\nBalance - The current balance on your gift card.\n\nTake Front Photo - Pressing the button allows you to take a picture of the front of your card to quickly identify the card for use.\n\nScan Code - This will self-populate once you have an account number.", "OK");
+            else if(Card.Type == "Other")
+                await DisplayAlert("Input Fields", "Account Number - Some cards have an account number associated with them.  If that is the case with this card manually input that number in this field.\n\nLabel - This field is used to describe your card.\n\nTake Front Photo - Pressing the button allows you to take a picture of the front of your card to quickly identify the card for use.\n\nTake Back Photo - Pressing the button allows you to take a picture of the back of your card", "OK");
+            else
+                await DisplayAlert("Input Fields", "Account Number - The account number for this card corresponds to the barcode on the back of the card.  Use the Scan Code button to get the Account Number from the card if a barcode is present, otherwise input the account number manually.\n\nLabel - This field is used to describe your card.\n\nTake Front Photo - Pressing the button allows you to take a picture of the front of your card to quickly identify the card for use.\n\nScan Code - This will self-populate once you have an account number.", "OK");
+
         }
         public async void ScanTheBarCode()
         {

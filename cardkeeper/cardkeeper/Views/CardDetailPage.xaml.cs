@@ -130,6 +130,11 @@ namespace cardkeeper.Views
                 balance.IsVisible = false;
                 pinButton.IsVisible = false;
             }
+            if(_viewModel.Card.Type == "Other")
+            {
+                accountLabel.IsVisible = false;
+                accountNumber.IsVisible = false;
+            }
             pageLayout.Children.Add(balance, 0,0);
             pageLayout.Children.Add(applyPurchase, 3, 0);
             Grid.SetColumnSpan(balance, 5);
@@ -179,8 +184,10 @@ namespace cardkeeper.Views
                 {
                     detailCard.FadeTo(0, 250);
                     if (_viewModel.Card.Type == "Other")
-                        detailCard.Source = Converter.ByteToImage(_viewModel.Card.BackImage);
-                     
+                    {
+                        if (_viewModel.Card.BackImage != null)
+                            detailCard.Source = Converter.ByteToImage(_viewModel.Card.BackImage);
+                    }                 
                     else
                     {
                         detailCard.Source = Converter.ByteToImage(_viewModel.Card.ScanCode);

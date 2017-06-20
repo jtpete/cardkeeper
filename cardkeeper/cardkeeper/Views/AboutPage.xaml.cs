@@ -37,18 +37,19 @@ namespace cardkeeper.Views
                 TextColor = Color.FromHex("#cc9933"),
             };
             layout.Children.Add(versionLabel);
-
-            BoxView bigLine = new BoxView()
+            Button detailsButton = new Button()
             {
-                WidthRequest = 1,
-                BackgroundColor = Color.FromHex("#2a2a2a"),
+                Text = "Details",
+                HorizontalOptions = LayoutOptions.StartAndExpand,
+                VerticalOptions = LayoutOptions.StartAndExpand,
+                Command = _viewModel.ShowDetails,
+                BackgroundColor = Color.FromHex("#cc9933"),
+
             };
-            
-            
-            layout.Children.Add(bigLine);
+            layout.Children.Add(detailsButton);           
             Label feedbackText = new Label()
             {
-                Text = "Help Card Keeper be better.",
+                Text = "Help Card Keeper get better.",
                 FontSize = 20,
                 TextColor = Color.FromHex("#cc9933"),
             };
@@ -56,8 +57,8 @@ namespace cardkeeper.Views
             Button submitButton = new Button()
             {
                 Text = "Submit",
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.StartAndExpand,
+                VerticalOptions = LayoutOptions.StartAndExpand,
                 Command = _viewModel.SendFeedback,
                 BackgroundColor = Color.FromHex("#cc9933"),
 
